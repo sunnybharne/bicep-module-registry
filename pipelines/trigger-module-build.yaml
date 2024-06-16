@@ -27,8 +27,8 @@ jobs:
       fetchDepth: 0
     - script: | 
         echo "BigBicep"
-        echo ls
-        echo pwd
+        ls
+        pwd
 
     # - task: AzurePowerShell@5
     #   name: bicepBuildTrigger
