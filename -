@@ -1,6 +1,0 @@
-variables:
-  environmentName: "nonprod"
-  registryName: ""
-  azureSubscription: ""
-  azureDeplotSubscriptionName: ""
-  location: 'swedencental'
