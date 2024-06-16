@@ -31,9 +31,9 @@ jobs:
             echo 'System Access Token'
             echo $(System.AccessToken)
       - checkout: self
-          persistantCredentials: true
-          clean: true
-          fetchDepth: 0
+            persistantCredentials: true
+            clean: true
+            fetchDepth: 0
     # - task: AzurePowerShell@5
     #     name: bicepBuildTrigger
     #     env:
