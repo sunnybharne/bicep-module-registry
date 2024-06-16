@@ -29,6 +29,7 @@ jobs:
         echo "BigBicep"
         ls
         pwd
+
     # - task: AzurePowerShell@5
     #   name: bicepBuildTrigger
     #   env:
