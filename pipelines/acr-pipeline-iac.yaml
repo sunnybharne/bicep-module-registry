@@ -1,0 +1,137 @@
+# Pipeline are used for CI, CD , CT
+# Deploy to multiple targets/ environments
+trigger:
+  branches:
+    include:
+      - main
+    # exclude:
+    #   - releases/*
+    #   - hotfix/*
+    #   - bugfix/*
+  paths:
+    include:
+      - infra/acr/*
+      - pipelines/acr-pipeline-iac.yaml
+
+    # exclude:
+    #   - deploy/ignore/*
+
+# pr: # Pull request trigger
+#   branches:
+#     include:
+#       - main
+#       - feature/*
+#     exclude:
+#       - releases/*
+#       - hotfix/*
+#       - bugfix/*
+
+# strategy: # Define the strategy for the pipeline
+#   matrix:
+#     linux:
+#       imageName: "ubuntu-latest"
+#     mac:
+#       imageName: "macOS-latest"
+#     windows:
+#       imageName: "windows-latest"
+#   maxParallel: 3
+
+# pool: # Define the pool for the pipeline
+  # vmImage: 'ubuntu-latest'
+  # vmImage: 'windows-latest'
+  # vmImage: 'macOS-latest'
+      
+pool: # Define selfhosted pool for the pipeline
+  name: 'selfhosted'
+
+# Parameters
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'id-platformiac-nonprod-sc-01'
+
+# Variables
+variables:
+  location: 'swedencentral'
+  templateFile: './infra/acr/main.bicep'
+  csmParametersFile: './infra/acr/parameters/main.acr.bicepparam'
+  deploymentScope: 'subscription'
+  deploymentName: 'acr-pipeline-iac'
+ 
+# Code covertage reporting ? this needs to be done with sonarqube 
+
+stages: # Deployment stages
+# - stage: deployStageName
+- stage: 
+  displayName: acr pipeline
+  jobs: #Collection of Jobs 
+  - job: deploy_acr # collection of Steps and tasks
+    displayName: deploy acr
+    steps: # Single line command
+    # - task: AzureResourceManagerTemplateDeployment@3
+    #   inputs:
+    #     deploymentScope: 'subscription'
+    #     action: 'Create Or Update Resource Group'
+    #     azureSubscription: '$(azureServiceConnection)'
+    #     location: '$(location)'
+    #     csmFile: '$(templateFile)'
+    #     csmParametersFile: '$(csmParametersFile)'
+    #     # deploymentMode: 'Incremental'
+    #     deploymentName: 'DeployPipelineTemplate'
+    # - script: |
+    #     echo Installing azcli
+    #     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    #     az --version
+    #     az bicep install
+    #     pwd
+    #   displayName: 'Install azcli'
+
+    - task: AzureCLI@2
+      inputs:
+        displayName: Deploying azure container registry
+        azureSubscription: '${{ parameters.azureServiceConnection }}'
+        scriptType: bash
+        scriptLocation: inlineScript
+        useGlobalConfig: false
+        inlineScript: |
+          az --version
+          az stack sub create -n $(deploymentName) -l $(location) --parameters $(csmParametersFile) --dm none --aou deleteAll
+#--dm none --aou detachAll
+#--dm none --aou detachAll
+# az stack sub create -n $(deploymentName) -l $(location) --parameters $(csmParametersFile) --dm none --aou detachAll
+    # - script: echo Build started at $(Build.StartTime)
+    #   displayName: 'Build started at'
+
+
+    # - task: AzureCLI@2
+    #   inputs:
+    #     azureSubscription: $(ServiceConnectionName)
+    #     scriptType: 'bash'
+    #     scriptLocation: 'inlineScript'
+    #     inlineScript: |
+    #       az config set bicep.use_binary_from_path=true
+    #       az config get
+    #       echo Deploying azure container registry
+    #       az stack sub create -n $(DeploymentName) -l $(DeploymentDefaultLocation) --template-file $(CsmFile) --dm none --aou detachAll
+    #     displayName: 'Deploy azure container registry'
+
+    # - script: | # Multi line command
+    #     echo Build number is $(Build.BuildNumber)
+    #     echo Build completed at $(Build.FinishTime)
+    #   displayName: 'Build completed at'
+
+    # - task: AzureResourceManagerTemplateDeployment@3 # Task to deploy azure container registry for bicep modules
+    #   displayName: 'Deploy azure container registry'
+    #   inputs:
+    #     csmFile: deploy/main.bicep
+    #     # resourceGroupName: Example
+    #     location: 'swedencentral'
+    #     deploymentScope: 'subscription'
+    #     # azureResourceManager
+    #     # overrideParameters: >
+    #     #   -parameterName parameterValue
+          
+#System variables
+# Azure Pipelines also uses system variables. System variables contain predefined information you might want to use in your pipeline. Here are some of the system variables you can use in your pipeline:
+#     Build.BuildNumber is the unique identifier for your pipeline run. Despite its name, the Build.BuildNumber value often is a string, and not a number. You might use this variable to name your Azure deployment, so you can track the deployment back to the specific pipeline run that triggered it.
+#     Agent.BuildDirectory is the path on your agent machine's file system where your pipeline run's files are stored. This information can be useful when you want to reference files on the build agent.

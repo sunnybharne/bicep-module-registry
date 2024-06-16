@@ -1,0 +1,50 @@
+# Pipeline can be used for CI, CD , CT
+
+trigger:
+ Branch:
+  include:
+    - main
+    # - feature/*
+  # you can also exclude the branches as per your requirement
+  # exclude:
+  #   - releases/*
+  #   - hotfix/*
+  #   - bugfix/*
+
+ # You can also use path to trigger the pipeline on the basis of pr
+ # pr:
+ #  include:
+ #    - main
+ #    - feature/*
+ #  exclude:
+ #    - releases/*
+ #    - hotfix/*
+ #    - bugfix/*
+
+# You can define stratagy to on how to build the pipeline parallaly on multipal os 
+# strategy:
+#   matrix:
+#     linux:
+#       imageName: "ubuntu-latest"
+#     mac:
+#       imageName: "macOS-latest"
+#     windows:
+#       imageName: "windows-latest"
+#   maxParallel: 3
+      
+
+# Pool can be used to define the OS for the pipeline
+# pool:
+  # vmImage: 'ubuntu-latest'
+  # vmImage: 'windows-latest'
+  # vmImage: 'macOS-latest'
+# pool can also be used to define selfhosed agents
+pool:
+  self-hosted: 'myagent'
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+
+
