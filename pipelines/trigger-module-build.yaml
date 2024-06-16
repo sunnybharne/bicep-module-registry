@@ -22,7 +22,7 @@ jobs:
   - job: bicep_build
     steps:
     - checkout: self
-      persistantCredentials: true
+      # persistantCredentials: true
       clean: true
       fetchDepth: 0
     - script: | 
