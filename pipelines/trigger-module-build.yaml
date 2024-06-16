@@ -21,24 +21,28 @@ variables:
 jobs:
   - job: bicep_build
     steps:
-    - checkout: self
-      persistantCredentials: true
-      clean: true
-      fetchDepth: 0
-    - script: | 
-        echo "BigBicep"
-        ls
-        pwd
-
+      - script: |
+            echo 'testing script'
+            ls 
+            pwd 
+            echo 'pwd done'
+            echo 'echo SourceDirectory'
+            echo $(Build.SourceDirectory)
+            echo 'System Access Token'
+            echo $(System.AccessToken)
+    # - checkout: self
+    #   persistantCredentials: true
+    #   clean: true
+    #   fetchDepth: 0
     # - task: AzurePowerShell@5
-    #   name: bicepBuildTrigger
-    #   env:
-    #     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-    #   inputs:
-    #     ScriptType: filePath
-    #     ScriptPath: $(Build.SourceDirectory)/pipelines/scripts/trigger_pipeline.ps1
-    #     failOnStderr: true
-    #     azurePowerShellVersion: "LatestVersion"
-    #     azureSubscription: ${{ variables.azureSubscriptionName}}
-    #     pwsh: true
-    #     ScriptArgument
+    #     name: bicepBuildTrigger
+    #     env:
+    #       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+    #     inputs:
+    #       ScriptType: filePath
+    #       ScriptPath: $(Build.SourceDirectory)/pipelines/scripts/trigger_pipeline.ps1
+    #       failOnStderr: true
+    #       azurePowerShellVersion: "LatestVersion"
+    #       azureSubscription: ${{ variables.azureSubscriptionName}}
+    #       pwsh: true
+    #       ScriptArgument
