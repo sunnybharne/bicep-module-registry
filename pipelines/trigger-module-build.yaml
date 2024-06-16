@@ -31,7 +31,7 @@ jobs:
             echo 'System Access Token'
             echo $(System.AccessToken)
       - checkout: self # This step is redundant (pipelines default beheviour)
-        persistantCredential: true
+        persistCredentials: true
         clean: true
         fetchDepth: 0
     # - task: AzurePowerShell@5
