@@ -5,7 +5,7 @@ trigger:
   paths:
     exclude:
     - modules/*
-    - pipelines/*
+    # - pipelines/*
 
 resources: 
   - repo: self
