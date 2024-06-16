@@ -111,5 +111,3 @@ name: my-first-azure-pipeline # Name of the pipeline
 </details>
 
 </details>
-
-
