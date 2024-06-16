@@ -4,8 +4,8 @@ trigger:
     - main
   path:
     exclude:
-    - modules
-    - pipelines
+    - modules/*
+    - pipelines/*
 
 resources: 
   - repo: self
