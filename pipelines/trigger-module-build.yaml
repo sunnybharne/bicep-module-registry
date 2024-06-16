@@ -1,23 +1,19 @@
 trigger:
   branches:
     include:
-    - main
+      - main
   path:
     exclude:
-    - modules/*
-    - pipelines/*
-
+      - modules
+      - pipelines/*
 resources: 
   - repo: self
-
 pool:
   name: 'selfhosted'
-
 variables:
   - name: pathVersion
     value: $[counter(0, 0)] # dont know what is this for
   # - template: variables/variables-test.yaml
-
 jobs:
   - job: bicep_build
     steps:
