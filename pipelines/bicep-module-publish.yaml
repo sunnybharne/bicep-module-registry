@@ -1,0 +1,35 @@
+name: 'Bicep Module Publish Pipeline'
+trigger:
+  branches:
+    include:
+      - main
+    exclude:
+      - test/*
+  paths:
+    include:
+      - modules/*
+      - pipelines/bicep-modules-publish.yaml
+    exclude:
+      - README.md
+      - modules/README.md
+  tags:
+    include:
+      - v1*
+    exclude:
+      - testrelease
+
+pool:
+  name: 'selfhosted'
+
+jobs:
+  job:
+    steps:
+      - task: AzurePowerShell@5
+        input:
+          azureSubscription: 'ce5d875c-f189-49cf-8099-678b1a071852'
+          ScriptType: 'InlineScript'
+          Inline: |
+            echo testing
+          azurePowerShellVersion: 'Latest'
+          pwsh: true
+
