@@ -104,7 +104,7 @@ stages: # Deployment stages
 
     - task: AzurePowerShell@5
       inputs:
-        azureSubscription: 'ce5d875c-f189-49cf-8099-678b1a071852'
+        azureSubscription: '${{ parameters.azureServiceConnection }}'
         ScriptType: 'InlineScript'
         Inline: |
           echo testing
