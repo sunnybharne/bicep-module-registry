@@ -97,17 +97,17 @@ stages: # Deployment stages
           az --version
           az stack sub create -n $(deploymentName) -l $(location) --parameters $(csmParametersFile) --dm none --aou deleteAll
 
-    - task: AzurePowerShell@5
-      inputs:
-        displayName: AzurePowerShell
-        azureSubscription: '${{ parameters.azureServiceConnection }}'
-        ScriptType: 'InlineScript'
-        Inline: |
-          Get-InstalledModule -Name Az.Accounts -AllVersions
-          echo testing
-        azurePowerShellVersion: 'Latest'
-        pwsh: true
-
+    # - task: AzurePowerShell@5
+    #   inputs:
+    #     displayName: AzurePowerShell
+    #     azureSubscription: '${{ parameters.azureServiceConnection }}'
+    #     ScriptType: 'InlineScript'
+    #     Inline: |
+    #       Get-InstalledModule -Name Az.Accounts -AllVersions
+    #       echo testing
+    #     azurePowerShellVersion: 'Latest'
+    #     pwsh: true
+    #
     # - task: AzureCLI@2
     #   inputs:
     #     azureSubscription: $(ServiceConnectionName)
