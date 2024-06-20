@@ -21,17 +21,23 @@ trigger:
 pool:
   name: 'selfhosted'
 
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'id-platformiac-nonprod-sc-01'
+
 jobs:
   - job: 
     displayName: 'Push Modules'
     steps:
       - task: AzurePowerShell@5
         inputs:
-          azureSubscription: 'ce5d875c-f189-49cf-8099-678b1a071852'
+          displayName: AzurePowerShell
+          azureSubscription: '${{ parameters.azureServiceConnection }}'
           ScriptType: 'InlineScript'
           Inline: |
-            az account show
+            Get-InstalledModule -Name Az.Accounts -AllVersions
             echo testing
           azurePowerShellVersion: 'Latest'
           pwsh: true
-        
+

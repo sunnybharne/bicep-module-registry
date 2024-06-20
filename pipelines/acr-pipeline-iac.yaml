@@ -96,6 +96,7 @@ stages: # Deployment stages
         inlineScript: |
           az --version
           az stack sub create -n $(deploymentName) -l $(location) --parameters $(csmParametersFile) --dm none --aou deleteAll
+
     - task: AzurePowerShell@5
       inputs:
         displayName: AzurePowerShell
