@@ -30,6 +30,7 @@ jobs:
           azureSubscription: 'ce5d875c-f189-49cf-8099-678b1a071852'
           ScriptType: 'InlineScript'
           Inline: |
+            az account show
             echo testing
           azurePowerShellVersion: 'Latest'
           pwsh: true
