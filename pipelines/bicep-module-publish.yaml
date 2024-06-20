@@ -26,8 +26,11 @@ jobs:
     displayName: 'Push Modules'
     steps:
       - task: AzurePowerShell@5
-        ScriptType: 'InlineScript'
-        Inline: |
-          echo testing
-        azurePowerShellVersion: 'Latest'
-        pwsh: true
+        inputs:
+          azureSubscription: 
+          ScriptType: 'InlineScript'
+          Inline: |
+            echo testing
+          azurePowerShellVersion: 'Latest'
+          pwsh: true
+        
