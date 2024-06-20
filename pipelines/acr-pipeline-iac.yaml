@@ -107,6 +107,7 @@ stages: # Deployment stages
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         ScriptType: 'InlineScript'
         Inline: |
+          Get-InstalledModule -Name Az.Accounts -AllVersions
           echo testing
         azurePowerShellVersion: 'Latest'
         pwsh: true
