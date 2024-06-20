@@ -19,11 +19,6 @@ bicep-module-registry  # root folder
 │   │   ├──main.bicep # starting point for acr module
 ```
 
-
-
-
-
-
 # Azure pipelines
 
 <details>
