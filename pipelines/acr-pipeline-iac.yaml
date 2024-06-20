@@ -102,6 +102,14 @@ stages: # Deployment stages
     # - script: echo Build started at $(Build.StartTime)
     #   displayName: 'Build started at'
 
+    - task: AzurePowerShell@5
+      inputs:
+        azureSubscription: 'ce5d875c-f189-49cf-8099-678b1a071852'
+        ScriptType: 'InlineScript'
+        Inline: |
+          echo testing
+        azurePowerShellVersion: 'Latest'
+        pwsh: true
 
     # - task: AzureCLI@2
     #   inputs:
