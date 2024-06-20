@@ -96,14 +96,9 @@ stages: # Deployment stages
         inlineScript: |
           az --version
           az stack sub create -n $(deploymentName) -l $(location) --parameters $(csmParametersFile) --dm none --aou deleteAll
-#--dm none --aou detachAll
-#--dm none --aou detachAll
-# az stack sub create -n $(deploymentName) -l $(location) --parameters $(csmParametersFile) --dm none --aou detachAll
-    # - script: echo Build started at $(Build.StartTime)
-    #   displayName: 'Build started at'
-
     - task: AzurePowerShell@5
       inputs:
+        displayName: AzurePowerShell
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         ScriptType: 'InlineScript'
         Inline: |
