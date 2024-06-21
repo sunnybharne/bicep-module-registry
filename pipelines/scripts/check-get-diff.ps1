@@ -51,6 +51,7 @@ foreach ($file in $changedFiles) {
   Write-Output "Printing file"
   Write-Output $file
   az acr login -n tuttuacrplatformiacsc01
+  az bicep publish -f $file --target br:tuttuacrplatformiacsc01.azurecr.io/resource/somemodule:1.0.1
 
 
   #if ($file) {
