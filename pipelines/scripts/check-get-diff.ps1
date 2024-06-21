@@ -45,22 +45,22 @@ if ($diffOutput) {
 $changedFiles = $diffOutput -split "`n"
 
 
+
+az acr login -n tuttuacrplatformiacsc01
+
 # Loop through each changed .bicep file and publish to ACR
 foreach ($file in $changedFiles) {
 
   # Remove the "modules/" prefix
-  $stringWithoutPrefix = $file -replace 'modules/resources', ''
+  $stringWithoutPrefix = $file -replace 'modules/resources/', ''
 
   # Remove the ".bicep" suffix
   $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 
-  Write-Output $stringWithoutPrefix
 
   Write-Output $moduleRepoName
 
-  #az acr login -n tuttuacrplatformiacsc01
-  #az bicep publish -f $file --target br:tuttuacrplatformiacsc01.azurecr.io/esource/somemodule:1.0.1
-
+  az bicep publish -f $file --target br:tuttuacrplatformiacsc01.azurecr.io/resource/$moduleRepoName:1.0.1
 
   #if ($file) {
     # Construct the ACR image name and tag
