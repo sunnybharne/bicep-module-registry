@@ -10,12 +10,17 @@
 
 Write-Output "Azure devops Script started"
 
+# Change the directory to the repository root
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
-Get-ChildItem
+# Get the number of commits in the repository
+$commitCount = git rev-list --count HEAD
 
-Write-Output "We are in the root folder now"
-
+# Check if there are at least two commits
+if ($commitCount -lt 2) {
+    Write-Output "Not enough commits to perform diff"
+    exit 0
+}
 
 ## Check if there are changes in files under the 'pipelines/' folder
 #$diffOutput = git diff HEAD~1 --name-only -- pipelines/
