@@ -50,8 +50,8 @@ foreach ($file in $changedFiles) {
 
   Write-Output "Printing file"
   Write-Output $file
+  az acr login -n tuttuacrplatformiacsc01
 
-  az account show
 
   #if ($file) {
     # Construct the ACR image name and tag
