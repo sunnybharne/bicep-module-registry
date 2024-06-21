@@ -21,7 +21,7 @@ jobs:
   steps:
     - checkout: self
       clean: true
-      fetchDepth: 2   
+      fetchDepth: 1   
       persistCredentials: true
       displayName: 'Get checkout'
 
