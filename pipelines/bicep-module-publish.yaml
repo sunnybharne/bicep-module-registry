@@ -6,7 +6,6 @@ trigger:
   paths:
     include:
       - modules/resources/*
-      - pipelines/*
 
 pool:
   name: 'selfhosted'
