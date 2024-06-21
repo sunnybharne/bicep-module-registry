@@ -49,10 +49,10 @@ $changedFiles = $diffOutput -split "`n"
 foreach ($file in $changedFiles) {
 
   # Remove the "modules/" prefix
-  $stringWithoutPrefix = $file -replace 'modules', ''
+  $stringWithoutPrefix = $file -replace 'modules/resources', ''
 
   # Remove the ".bicep" suffix
-  $moduleRepoName = $stringWithoutPrefix -replace '.bicep$', ''
+  $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 
   Write-Output $stringWithoutPrefix
 
