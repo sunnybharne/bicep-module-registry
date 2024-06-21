@@ -17,7 +17,7 @@ Write-Output "Azure devops Script started"
 #}
 
 # Check if there are changes in files under the 'pipelines/' folder between current and parent commits
-$diffOutput = git diff HEAD^ --name-only -- modules/resources
+$diffOutput = git diff HEAD^ --name-only -- modules/resources/*.md
 
 # Check the output of git diff
 if ($diffOutput) {
