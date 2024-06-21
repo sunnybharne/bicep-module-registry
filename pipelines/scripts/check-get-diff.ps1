@@ -7,7 +7,7 @@
 Write-Output "Azure devops Script started"
 
 # Check if there are changes in files under the 'pipelines/' folder
-$diffOutput = git diff HEAD^ --name-only -- pipelines/
+$diffOutput = git diff HEAD~1 --name-only -- pipelines/
 
 # Check the output of git diff
 if ($diffOutput) {
