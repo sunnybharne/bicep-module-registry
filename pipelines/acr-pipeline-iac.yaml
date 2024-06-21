@@ -1,6 +1,6 @@
 # Pipeline are used for CI, CD , CT
 # Deploy to multiple targets/ environments
-name: acr-infra-pipeline
+name: acr-infra-pipeline-from-name
 trigger:
   branches:
     include:
