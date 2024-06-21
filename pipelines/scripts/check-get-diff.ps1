@@ -61,7 +61,7 @@ foreach ($file in $changedFiles) {
 
   Write-Output $publishtarget
 
-  #az bicep publish -f $file --target $publishtarget
+  az bicep publish -f $file --target $publishtarget
  
   #if ($file) {
     # Construct the ACR image name and tag
