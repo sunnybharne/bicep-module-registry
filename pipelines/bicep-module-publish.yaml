@@ -24,7 +24,6 @@ jobs:
       fetchDepth: 2   
       persistCredentials: true
       path: $(Pipeline.Workspace)
-      continueOnError: flase
       displayName: 'Get checkout'
 
     - task: AzurePowerShell@5
