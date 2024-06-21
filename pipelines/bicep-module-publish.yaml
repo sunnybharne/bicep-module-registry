@@ -15,18 +15,31 @@ parameters:
   type: string
   default: 'id-platformiac-nonprod-sc-01'
 
+# jobs:
+#   - job: 
+#     displayName: 'Push Modules'
+#     steps:
+#       - task: AzurePowerShell@5
+#         inputs:
+#           displayName: AzurePowerShell
+#           azureSubscription: '${{ parameters.azureServiceConnection }}'
+#           ScriptType: 'FilePath'
+#           ScriptPath: '$(Pipeline.Workspace)/Bicep-Module-Registry/pipelines/scripts/check-get-diff.ps1'
+#           azurePowerShellVersion: 'Latest'
+#           pwsh: true
+#
+
 jobs:
-  - job: 
-    displayName: 'Push Modules'
-    steps:
-      - task: AzurePowerShell@5
-        inputs:
-          displayName: AzurePowerShell
-          azureSubscription: '${{ parameters.azureServiceConnection }}'
-          ScriptType: 'FilePath'
-          ScriptPath: '$(Pipeline.Workspace)/Bicep-Module-Registry/pipelines/scripts/check-get-diff.ps1'
-          azurePowerShellVersion: 'Latest'
-          pwsh: true
-
-
-          
+- job: 
+  displayName: 'Push Modules'
+  steps:
+    - task: AzurePowerShell@5
+      inputs:
+        displayName: AzurePowerShell
+        azureSubscription: '${{ parameters.azureServiceConnection }}'
+        filetype: 'inline'
+        script: |
+          Get-ChildItem
+        azurePowerShellVersion: 'Latest'
+        pwsh: true
+         
