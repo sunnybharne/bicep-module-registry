@@ -6,11 +6,17 @@
 
 Write-Output "Azure devops Script started"
 
-# Run git diff and capture output
-$pipeline = git diff HEAD -- pipelines
-#$modules = git diff HEAD -- $modules
+# Check if there are changes in files under the 'pipelines/' folder
+$diffOutput = git diff HEAD HEAD~ -- pipelines/
 
-Write-Output $pipelines "Diff in pipelinefolder" 
+# Check the output of git diff
+if ($diffOutput) {
+    Write-Output "Changed"
+} else {
+    Write-Output "Not changed"
+}
+
+#Write-Output $pipelines "Diff in pipelinefolder" 
 #Write-Output $modules "Diff in modules folder" 
 
 #if ($diffOutput) {
