@@ -48,10 +48,16 @@ $changedFiles = $diffOutput -split "`n"
 # Loop through each changed .bicep file and publish to ACR
 foreach ($file in $changedFiles) {
 
-  Write-Output "Printing file"
-  Write-Output $file
-  az acr login -n tuttuacrplatformiacsc01
-  az bicep publish -f $file --target br:tuttuacrplatformiacsc01.azurecr.io/resource/somemodule:1.0.1
+  # Remove the "modules/" prefix
+  $stringWithoutPrefix = $originalString -replace '^modules/', ''
+
+  # Remove the ".bicep" suffix
+  $moduleRepoName = $stringWithoutPrefix -replace '\.bicep$', ''
+
+  Write-Output $moduleRepoName
+
+  #az acr login -n tuttuacrplatformiacsc01
+  #az bicep publish -f $file --target br:tuttuacrplatformiacsc01.azurecr.io/esource/somemodule:1.0.1
 
 
   #if ($file) {
