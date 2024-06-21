@@ -20,7 +20,7 @@ jobs:
   displayName: 'Push Modules'
   steps:
     - task: AzurePowerShell@5
-      displayName: Git Diff
+      displayName: Git diff on modules
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         scriptType: filePath # | 'InlineScript'
