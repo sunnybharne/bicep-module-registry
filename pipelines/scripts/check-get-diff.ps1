@@ -16,6 +16,7 @@ if ($diffOutput) {
     Write-Output "Not changed"
 }
 
+
 #Write-Output $pipelines "Diff in pipelinefolder" 
 #Write-Output $modules "Diff in modules folder" 
 
