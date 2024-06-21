@@ -1,0 +1,41 @@
+name: 'Bicep Module Publish'
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - modules/products/*.bicep
+
+pool:
+  name: 'selfhosted'
+
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: 'id-platformiac-nonprod-sc-01'
+
+jobs:
+- job: 
+  displayName: 'Push Product Modules'
+  steps:
+    - checkout: self
+      clean: true
+      fetchDepth: 2   
+      persistCredentials: true
+      displayName: 'Get checkout'
+
+    - task: AzurePowerShell@5
+      displayName: Git diff on product modules
+      inputs:
+        azureSubscription: '${{ parameters.azureServiceConnection }}'
+        scriptType: filePath # | 'InlineScript'
+        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/check-get-diff.ps1
+        # scriptArguments:
+        #   -Arg1 val1 `
+        #   -Arg2 val2 `
+        #   -Arg3 val3
+        azurePowerShellVersion: latestVersion
+        FailOnStandardError: true
+        errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
+        pwsh: true
