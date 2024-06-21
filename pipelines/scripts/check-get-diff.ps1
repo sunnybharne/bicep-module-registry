@@ -33,11 +33,15 @@ $diffOutput = git diff --name-only $parentCommitHash $currentCommitHash -- modul
 
 # Print all changed .bicep files
 if ($diffOutput) {
-    Write-Output "Changed .bicep files:"
+    Write-Output "Changed modules"
+    Write-Output "---------------------"
     $diffOutput | ForEach-Object { Write-Output $_ }
 } else {
     Write-Output "No .bicep files changed"
+    Write-Output "-----------------------"
 }
+
+
 
 ## Check if there are changes in files under the 'pipelines/' folder
 #$diffOutput = git diff HEAD~1 --name-only -- pipelines/
