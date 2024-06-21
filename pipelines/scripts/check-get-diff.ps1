@@ -33,6 +33,9 @@ Write-Output $changedFiles
 # Check if there are any changes to the modules
 if ($diffOutput) {
     Write-Output "Found changed to the x folder"
+    foreach ($file in $changedFiles) {
+      az bicep publish --file $file --target akdsjdskdj.azurecr.io
+    }
 } else {
     Write-Output "No changes were found on the x folders"
 }
