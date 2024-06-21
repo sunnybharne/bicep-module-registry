@@ -17,8 +17,6 @@ if ($diffOutput) {
 }
 
 
-#Write-Output $pipelines "Diff in pipelinefolder" 
-#Write-Output $modules "Diff in modules folder" 
 
 #if ($diffOutput) {
 #    Write-Output "Changes found in folder '$folder'"
