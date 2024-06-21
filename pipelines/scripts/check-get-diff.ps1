@@ -1,8 +1,8 @@
 #!/usr/bin/env pwsh
 
-param(
-[string]$FolderPath
-)
+#param(
+#[string]$FolderPath
+#)
 
 Write-Output "Azure devops Script started"
 
