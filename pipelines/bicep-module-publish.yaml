@@ -15,20 +15,6 @@ parameters:
   type: string
   default: 'id-platformiac-nonprod-sc-01'
 
-# jobs:
-#   - job: 
-#     displayName: 'Push Modules'
-#     steps:
-#       - task: AzurePowerShell@5
-#         inputs:
-#           displayName: AzurePowerShell
-#           azureSubscription: '${{ parameters.azureServiceConnection }}'
-#           ScriptType: 'FilePath'
-#           ScriptPath: '$(Pipeline.Workspace)/Bicep-Module-Registry/pipelines/scripts/check-get-diff.ps1'
-#           azurePowerShellVersion: 'Latest'
-#           pwsh: true
-#
-
 jobs:
 - job: 
   displayName: 'Push Modules'
@@ -36,29 +22,13 @@ jobs:
     - task: AzurePowerShell@5
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
-        scriptType: filePath
+        scriptType: filePath # | 'InlineScript'
         scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/check-get-diff.ps1
         # scriptArguments:
         #   -Arg1 val1 `
         #   -Arg2 val2 `
         #   -Arg3 val3
         azurePowerShellVersion: latestVersion
+        FailOnStandardError: true
+        errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
         pwsh: true
-         
-
-# - task: AzurePowerShell@5
-#   inputs:
-#     displayName: AzurePowerShell
-#     azureSubscription: '${{ parameters.azureServiceConnection }}'
-#     ScriptType: 'InlineScript'
-#     # ScriptType: # 'FilePath' | 'InlineScript'
-#     # ScriptPath: # string. Optional. Use when ScriptType = FilePath. Script Path. 
-#     Inline: # string. Optional. Use when ScriptType = InlineScript. Inline Script. 
-#     # ScriptArguments: # string. Optional. Use when ScriptType = FilePath. Script Arguments. 
-#     # errorActionPreference: 'stop' # 'stop' | 'continue' | 'silentlyContinue'. ErrorActionPreference. Default: stop.
-#     # FailOnStandardError: false # boolean. Fail on Standard Error. Default: false.
-#     # azurePowerShellVersion: 'OtherVersion' # 'LatestVersion' | 'OtherVersion'. Alias: TargetAzurePs. Azure PowerShell Version. Default: OtherVersion.
-#     # preferredAzurePowerShellVersion: # string. Alias: CustomTargetAzurePs. Required when TargetAzurePs = OtherVersion. Preferred Azure PowerShell Version. 
-#     pwsh: true
-#     # validateScriptSignature: false # boolean. Optional. Use when ScriptType = FilePath. Validate script signature. Default: false.
-#     workingDirectory: # string. Working Directory.

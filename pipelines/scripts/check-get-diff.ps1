@@ -6,16 +6,14 @@ param(
 
 Write-Output "Azure devops Script started"
 
-Get-ChildItem
 
+# Run git diff and capture output
+$pipelines = git diff HEAD~ -- $pipelines
+$modules = git diff HEAD~ -- $modules
 
+Write-Output "Diff in pipelinefolder" $pipelines
+Write-Output "Diff in modules folder" $modules
 
-# Set the working directory to the Git repository root
-#Set-Location -Path (Get-Item -Path ".\" -Verbose).FullName
-#
-## Run git diff and capture output
-#$diffOutput = git diff HEAD~ -- $folder
-#
 #if ($diffOutput) {
 #    Write-Output "Changes found in folder '$folder'"
 #    $isDiff = $true
@@ -23,7 +21,7 @@ Get-ChildItem
 #    Write-Output "No changes found in folder '$folder'"
 #    $isDiff = $false
 #}
-#
+
 #return $isDiff
 
 #echo Started Script
