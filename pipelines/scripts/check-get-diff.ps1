@@ -22,6 +22,23 @@ if ($commitCount -lt 2) {
     exit 0
 }
 
+# Get the hash of the latest commit in the current branch
+$currentCommitHash = git rev-parse HEAD
+
+# Get the hash of the parent commit
+$parentCommitHash = git rev-parse HEAD^
+
+# Check if there are changes in .bicep files in the 'modules/resources' folder between the current and parent commits
+$diffOutput = git diff --name-only $parentCommitHash $currentCommitHash -- modules/resources/*.bicep
+
+# Print all changed .bicep files
+if ($diffOutput) {
+    Write-Output "Changed .bicep files:"
+    $diffOutput | ForEach-Object { Write-Output $_ }
+} else {
+    Write-Output "No .bicep files changed"
+}
+
 ## Check if there are changes in files under the 'pipelines/' folder
 #$diffOutput = git diff HEAD~1 --name-only -- pipelines/
 #
