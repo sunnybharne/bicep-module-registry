@@ -16,15 +16,8 @@ Write-Output "Azure devops Script started"
 #    Write-Output "Not changed"
 #}
 
-
-# Get the hash of the latest commit in the current branch
-$currentCommitHash = git rev-parse HEAD
-
-# Get the hash of the parent commit
-$parentCommitHash = git rev-parse HEAD~1
-
 # Check if there are changes in files under the 'pipelines/' folder between current and parent commits
-$diffOutput = git diff --name-only $parentCommitHash $currentCommitHash -- pipelines/
+$diffOutput = git diff HEAD^ --name-only -- pipelines/
 
 # Check the output of git diff
 if ($diffOutput) {
