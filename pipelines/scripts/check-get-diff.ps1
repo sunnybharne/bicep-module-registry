@@ -57,7 +57,7 @@ foreach ($file in $changedFiles) {
   # Remove the ".bicep" suffix
   $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 
-  $publishtarget = 'br:tuttuacrplatformiacsc01.azurecr.io/resource/$moduleRepoName:1.0.1'
+  $publishtarget = 'br:tuttuacrplatformiacsc01.azurecr.io/resource/'+ $moduleRepoName + ':1.0.1'
 
   Write-Output $publishtarget
 
