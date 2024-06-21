@@ -37,7 +37,7 @@ jobs:
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         scriptType: filePath
-        scriptPath: $(Build.SourcesDirectory)\pipelines\scripts\check-get-diff.ps1
+        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/check-get-diff.ps1
         # scriptArguments:
         #   -Arg1 val1 `
         #   -Arg2 val2 `
