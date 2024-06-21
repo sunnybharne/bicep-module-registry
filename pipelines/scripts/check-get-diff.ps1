@@ -51,6 +51,8 @@ foreach ($file in $changedFiles) {
   Write-Output "Printing file"
   Write-Output $file
 
+  az account show
+
   #if ($file) {
     # Construct the ACR image name and tag
     #$imageName = [System.IO.Path]::GetFileNameWithoutExtension($file)
