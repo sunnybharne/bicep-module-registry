@@ -1,4 +1,4 @@
-name: 'Bicep Module Publish Pipeline'
+name: 'Bicep Module Publish'
 trigger:
   branches:
     include:
