@@ -6,10 +6,9 @@
 
 Write-Output "Azure devops Script started"
 
-
 # Run git diff and capture output
-$pipelines = git diff HEAD~ -- $pipelines
-$modules = git diff HEAD~ -- $modules
+$pipelines = git diff HEAD -- $pipelines
+$modules = git diff HEAD -- $modules
 
 Write-Output "Diff in pipelinefolder" $pipelines
 Write-Output "Diff in modules folder" $modules
