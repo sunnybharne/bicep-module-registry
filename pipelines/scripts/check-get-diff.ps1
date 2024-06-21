@@ -57,11 +57,12 @@ foreach ($file in $changedFiles) {
   # Remove the ".bicep" suffix
   $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 
+  $publishtarget = 'br:tuttuacrplatformiacsc01.azurecr.io/resource/'$moduleRepoName':1.0.1'
 
-  Write-Output $moduleRepoName
+  Write-Output $publishtarget
 
-  az bicep publish -f $file --target br:tuttuacrplatformiacsc01.azurecr.io/resource/$moduleRepoName:1.0.1
-
+  #az bicep publish -f $file --target $publishtarget
+ 
   #if ($file) {
     # Construct the ACR image name and tag
     #$imageName = [System.IO.Path]::GetFileNameWithoutExtension($file)
