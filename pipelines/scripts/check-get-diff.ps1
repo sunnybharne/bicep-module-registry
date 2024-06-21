@@ -19,11 +19,22 @@ Write-Output "Azure devops Script started"
 # Check if there are changes in files under the 'pipelines/' folder between current and parent commits
 $diffOutput = git diff HEAD^ --name-only -- modules/resources/*.md
 
-# Check the output of git diff
+$changedFiles = $diffOutput -split "`n"
+
+
+Write-Output "Below is the diffoutupt"
+Write-Output $changedFiles
+
+Write-Output "Below is the changedfilesarray"
+Write-Output $changedFiles
+
+
+
+# Check if there are any changes to the modules
 if ($diffOutput) {
-    Write-Output "Changed"
+    Write-Output "Found changed to the x folder"
 } else {
-    Write-Output "Not changed"
+    Write-Output "No changes were found on the x folders"
 }
 
 
