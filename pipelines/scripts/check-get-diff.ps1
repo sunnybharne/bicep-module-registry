@@ -41,59 +41,28 @@ if ($diffOutput) {
     Write-Output "-----------------------"
 }
 
+# Split the diff output into an array of file paths
+$changedFiles = $diffOutput -split "`n"
 
 
-## Check if there are changes in files under the 'pipelines/' folder
-#$diffOutput = git diff HEAD~1 --name-only -- pipelines/
-#
-## Check the output of git diff
-#if ($diffOutput) {
-#    Write-Output "Changed"
-#} else {
-#    Write-Output "Not changed"
-#}
+# Loop through each changed .bicep file and publish to ACR
+foreach ($file in $changedFiles) {
 
-# Check if there are changes in files under the 'pipelines/' folder between current and parent commits
-#$diffOutput = git diff HEAD^ --name-only -- modules/resources/*.bicep
+  Write-Output "Printing file"
+  Write-Output $file
 
-#$changedFiles = $diffOutput -split "`n"
+  #if ($file) {
+    # Construct the ACR image name and tag
+    #$imageName = [System.IO.Path]::GetFileNameWithoutExtension($file)
+    #$acrImageTag = "$acrName.azurecr.io/$acrRepository/$imageName:latest"
 
+    # Publish the Bicep file to ACR
+    #Write-Output "Publishing $file to $acrImageTag"
+    #az bicep publish --file $file --target $acrImageTag
 
-#Write-Output "Below is the diffoutupt"
-#Write-Output $changedFile
-#
-#Write-Output "Below is the changedfilesarray"
-#Write-Output $changedFiles
-#
-#
-#
-## Check if there are any changes to the modules
-#if ($diffOutput) {
-#    Write-Output "Found changed to the x folder"
-#    foreach ($file in $changedFiles) {
-#      az bicep publish --file $file --target akdsjdskdj.azurecr.io
-#    }
-#} else {
-#    Write-Output "No changes were found on the x folders"
-#}
-
-
-
-#if ($diffOutput) {
-#    Write-Output "Changes found in folder '$folder'"
-#    $isDiff = $true
-#} else {
-#    Write-Output "No changes found in folder '$folder'"
-#    $isDiff = $false
-#}
-
-#return $isDiff
-
-#echo Started Script
-#if git diff --name-only HEAD HEAD~ | grep -q '^modules/resource/.*\.bicep$'; then
-#  echo "Changes detected in ./modules/resource folder."
-#  echo "Publishing modules to Azure DevOps Artifacts."
-#else
-#  echo "No changes in ./modules/resource folder."
-#fi
-#echo "Printing Git Diff"
+    # Check if the publish was successful
+    #if ($LASTEXITCODE -ne 0) {
+    #Write-Output "Failed to publish $file"
+    #exit 1
+    #}
+}
