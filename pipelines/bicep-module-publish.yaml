@@ -24,7 +24,7 @@ jobs:
           displayName: AzurePowerShell
           azureSubscription: '${{ parameters.azureServiceConnection }}'
           ScriptType: 'FilePath'
-          ScriptPath: '$(Pipeline.Workspace)/pipelines/scripts/check-get-diff.ps1'
+          ScriptPath: '$(Pipeline.Workspace)/Bicep-Module-Registry/pipelines/scripts/check-get-diff.ps1'
           azurePowerShellVersion: 'Latest'
           pwsh: true
 
