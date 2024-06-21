@@ -1,10 +1,21 @@
 #!/usr/bin/env pwsh
 
-#param(
-#[string]$FolderPath
+# Parameters
+#param (
+#    [string]$acrName = "yourACRName",
+#    [string]$resourceGroupName = "yourResourceGroupName",
+#    [string]$subscriptionId = "yourSubscriptionId",
+#    [string]$acrRepository = "yourRepositoryName"
 #)
 
 Write-Output "Azure devops Script started"
+
+Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
+
+Get-ChildItem
+
+Write-Output "We are in the root folder now"
+
 
 ## Check if there are changes in files under the 'pipelines/' folder
 #$diffOutput = git diff HEAD~1 --name-only -- pipelines/
@@ -17,28 +28,28 @@ Write-Output "Azure devops Script started"
 #}
 
 # Check if there are changes in files under the 'pipelines/' folder between current and parent commits
-$diffOutput = git diff HEAD^ --name-only -- modules/resources/*.bicep
+#$diffOutput = git diff HEAD^ --name-only -- modules/resources/*.bicep
 
-$changedFiles = $diffOutput -split "`n"
-
-
-Write-Output "Below is the diffoutupt"
-Write-Output $changedFile
-
-Write-Output "Below is the changedfilesarray"
-Write-Output $changedFiles
+#$changedFiles = $diffOutput -split "`n"
 
 
-
-# Check if there are any changes to the modules
-if ($diffOutput) {
-    Write-Output "Found changed to the x folder"
-    foreach ($file in $changedFiles) {
-      az bicep publish --file $file --target akdsjdskdj.azurecr.io
-    }
-} else {
-    Write-Output "No changes were found on the x folders"
-}
+#Write-Output "Below is the diffoutupt"
+#Write-Output $changedFile
+#
+#Write-Output "Below is the changedfilesarray"
+#Write-Output $changedFiles
+#
+#
+#
+## Check if there are any changes to the modules
+#if ($diffOutput) {
+#    Write-Output "Found changed to the x folder"
+#    foreach ($file in $changedFiles) {
+#      az bicep publish --file $file --target akdsjdskdj.azurecr.io
+#    }
+#} else {
+#    Write-Output "No changes were found on the x folders"
+#}
 
 
 
