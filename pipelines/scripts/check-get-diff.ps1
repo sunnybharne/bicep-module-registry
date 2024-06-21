@@ -10,8 +10,8 @@ Write-Output "Azure devops Script started"
 $pipelines = git diff HEAD -- $pipelines
 $modules = git diff HEAD -- $modules
 
-Write-Output "Diff in pipelinefolder" $pipelines
-Write-Output "Diff in modules folder" $modules
+Write-Output $pipelines "Diff in pipelinefolder" 
+Write-Output $modules "Diff in modules folder" 
 
 #if ($diffOutput) {
 #    Write-Output "Changes found in folder '$folder'"
