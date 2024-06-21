@@ -25,3 +25,12 @@ Get-ChildItem
 #}
 #
 #return $isDiff
+
+#echo Started Script
+#if git diff --name-only HEAD HEAD~ | grep -q '^modules/resource/.*\.bicep$'; then
+#  echo "Changes detected in ./modules/resource folder."
+#  echo "Publishing modules to Azure DevOps Artifacts."
+#else
+#  echo "No changes in ./modules/resource folder."
+#fi
+#echo "Printing Git Diff"
