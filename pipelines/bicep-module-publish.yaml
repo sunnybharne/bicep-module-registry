@@ -23,7 +23,6 @@ jobs:
       clean: true
       fetchDepth: 2   
       persistCredentials: true
-      path: $(Pipeline.Workspace)
       displayName: 'Get checkout'
 
     - task: AzurePowerShell@5
