@@ -21,11 +21,8 @@ $changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
 # Loop through each changed .bicep file and publish to ACR
 foreach ($file in $changedFiles) {
 
-  $target = & $publishTargetScript -acr $acrName -file $file -version $version 
-
-  Write-Output 'Target is below'
-  Write-Output $target
-
+  #$target = & $publishTargetScript -acr $acrName -file $file -version $version 
+  & $publishTargetScript -acr $acrName -file $file -version $version 
 
   #az bicep publish -f $file --target $publishtarget
 

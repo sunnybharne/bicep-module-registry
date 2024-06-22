@@ -13,16 +13,22 @@ param (
     [string]$version
 )
 
-# Remove the "modules/" prefix
-$stringWithoutPrefix = $file -replace 'modules/', ''
 
-# Remove the ".bicep" suffix
-$moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
+Write-Output $file
 
-$publishtarget = 'br:' + $acr + '/'+ $moduleRepoName + ':' + $version
-
-Write-Output 'Cueent targer is: --->'
-Write-Output $publishtarget
-
-return $publishtarget
+## Remove the "modules/" prefix
+#$stringWithoutPrefix = $file -replace 'modules/', ''
+#
+## Remove the ".bicep" suffix
+#$moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
+#
+#Write-Output 'Cueent modules repo name is: --->'
+#Write-Output $moduleRepoName
+#
+#$publishtarget = 'br:' + $acr + '/'+ $moduleRepoName + ':' + $version
+#
+#Write-Output 'Cueent targer is: --->'
+#Write-Output $publishtarget
+#
+#return $publishtarget
 
