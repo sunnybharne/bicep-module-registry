@@ -44,23 +44,21 @@ if ($diffOutput) {
 # Split the diff output into an array of file paths
 $changedFiles = $diffOutput -split "`n"
 
-Write-Output 'length of the file'
-Write-Output $changedFiles.Length
-
-
-#foreach ($file in $changedFiles) {
-#  Write-Output $file
-#}
-
-#Write-Output 'Number of files changed are : ' $changedFiles.Length
-
 #az acr login -n tuttuacrplatformiacsc01
 
 # Loop through each changed .bicep file and publish to ACR
-#foreach ($file in $changedFiles) {
+foreach ($file in $changedFiles) {
 
-  #Write-Output $file
+  # Remove the "modules/" prefix
+  $stringWithoutPrefix = $file -replace 'modules/', ''
 
+  # Remove the ".bicep" suffix
+  $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
+
+  Write-Output '$moduleRepoName'
+  Write-Output '---------------'
+  Write-Output $moduleRepoName
+  
   #$target = & $publishTargetScript -acr $acrName -file $file -version $version 
   #& $publishTargetScript -acr $acrName -file $file -version $version 
 
@@ -80,4 +78,4 @@ Write-Output $changedFiles.Length
     #Write-Output "Failed to publish $file"
     #exit 1
     #}
-#}
+}
