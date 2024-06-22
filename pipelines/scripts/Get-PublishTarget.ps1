@@ -11,7 +11,7 @@ param (
     [string]$file,
     [Parameter(Mandatory =$true, Position = 2, HelpMessage = "Module version")]
     [ValidateNotNullOrEmpty()]
-    [string]$version,
+    [string]$version
 )
 
 # Remove the "modules/" prefix
