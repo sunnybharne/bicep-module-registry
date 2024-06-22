@@ -33,7 +33,8 @@ jobs:
         scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/Get-Git-Diff-Files.ps1
         # scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/check-get-diff.ps1
         scriptArguments:
-          -gitDiffPath 'modules/resources/*.bicep'
+          -gitDiffPath 'modules/services/*.bicep'
+          # -gitDiffPath 'modules/resources/*.bicep'
         azurePowerShellVersion: latestVersion
         FailOnStandardError: true
         errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
