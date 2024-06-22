@@ -14,6 +14,8 @@ param (
 )
 
 
+Write-Output '$file are below here'
+Write-Output '-----------------'
 Write-Output $file
 
 ## Remove the "modules/" prefix
