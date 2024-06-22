@@ -21,5 +21,8 @@ $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 
 $publishtarget = 'br:' + $acr + '/'+ $moduleRepoName + ':' + $version
 
+Write-Output 'Cueent targer is: --->'
+Write-Output $publishtarget
+
 return $publishtarget
 
