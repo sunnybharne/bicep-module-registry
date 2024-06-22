@@ -8,7 +8,6 @@
 #    [string]$acrRepository = "yourRepositoryName"
 #)
 
-Write-Output "Azure devops Script started"
 
 # Change the directory to the repository root
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
