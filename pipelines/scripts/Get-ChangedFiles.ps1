@@ -43,4 +43,4 @@ if ($diffOutput) {
 #$changedFiles = $diffOutput -split "`n"
 
 # Return changedFiles
-return $diffOutput
+#return $diffOutput
