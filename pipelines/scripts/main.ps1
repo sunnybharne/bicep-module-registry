@@ -2,19 +2,13 @@
 
 #Variables
 # Define the path to the script to be called
-
 $repoName = 'bicep-module-registry'
 $psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/scripts'
 $changedFileScript = './pipelines/scripts/Get-ChangedFiles.ps1'
-#$publishTargetScript = './pipelines/scripts/.ps1'
+$publishTargetScript = './pipelines/scripts/Get-PublishTarget.ps1'
 $gitDiffPath = 'modules/resources/*.bicep'
 $acrName =  "tuttuacrplatformiacsc01.azurecr.io"
 $version = 1.0.1.1
-
-Write-Output 'echoing build repository location'
-Write-Output $changedFileScript
-Write-Output $publishTargetScript
-Write-Output $diffPath
 
 # Change the directory to the repository root
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
@@ -22,18 +16,15 @@ Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 # Call the script and capture the returned value using the call operator
 $changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
 
-Write-Output 'writing changefiles'
-Write-Output $changedFiles
-
 #az acr login -n tuttuacrplatformiacsc01
-#
-## Loop through each changed .bicep file and publish to ACR
-#foreach ($file in $changedFiles) {
-#
-#  $target = & $publishTargetScript -acr $acrName -file $file -version $version 
-#
-#  Write-Output 'Target is below'
-#  Write-Output $target
+
+# Loop through each changed .bicep file and publish to ACR
+foreach ($file in $changedFiles) {
+
+  $target = & $publishTargetScript -acr $acrName -file $file -version $version 
+
+  Write-Output 'Target is below'
+  Write-Output $target
 
 
   #az bicep publish -f $file --target $publishtarget
