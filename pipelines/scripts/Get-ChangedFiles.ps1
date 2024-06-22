@@ -44,5 +44,6 @@ $changedFiles = $diffOutput -split "`n"
 
 Write-Output $changedFiles.Length
 
+Write-Output 'This is end of script'
 # Return changedFiles
 return $changedFiles
