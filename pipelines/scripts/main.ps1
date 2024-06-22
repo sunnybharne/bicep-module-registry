@@ -5,8 +5,8 @@
 
 $repoName = 'bicep-module-registry'
 $psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/scripts'
-
-
+$changedFileScript = $psSriptsPath + 'Get-ChangedFiles.ps1'
+$publishTargetScript = $psSriptsPath + 'Get-PublishTarget.ps1'
 
 #$scriptPath = "./Get-ChangedFiles.ps1"
 ## Define the parameter for the called script
@@ -19,7 +19,8 @@ $psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/
 #$version = 1.0.1.1
 
 Write-Output 'echoing build repository location'
-Write-Output $psSriptsPath
+Write-Output $changedFileScript
+Write-Output $publishTargetScript
 
 ## Change the directory to the repository root
 #Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
