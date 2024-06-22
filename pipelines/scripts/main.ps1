@@ -63,9 +63,11 @@ foreach ($file in $changedFiles) {
     az bicep publish -f $file --target $publishtarget
 
     ## Check if the publish was successful
-    #if ($LASTEXITCODE -ne 0) {
-    #Write-Output "Failed to publish $file with target $publishtarget"
-    #exit 1
-    #}
+    if ($LASTEXITCODE -ne 0) {
+    Write-Output "Failed to publish $file with target $publishtarget"
+    exit 1
+    }
   }
 }
+
+Write-Output 'End of the script'
