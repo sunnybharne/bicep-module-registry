@@ -55,13 +55,11 @@ foreach ($file in $changedFiles) {
   # Remove the ".bicep" suffix
   $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 
-  Write-Output '$moduleRepoName'
-  Write-Output '---------------'
-  Write-Output $moduleRepoName
-  
-  #$target = & $publishTargetScript -acr $acrName -file $file -version $version 
-  #& $publishTargetScript -acr $acrName -file $file -version $version 
+  # Publish target
+  $publishtarget = 'br:' + $acrName + '/'+ $moduleRepoName + ':' + $version
 
+  Write-Output $publishtarget
+  
   #az bicep publish -f $file --target $publishtarget
 
   #if ($file) {
