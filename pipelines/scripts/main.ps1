@@ -7,7 +7,7 @@ $repoName = 'bicep-module-registry'
 $psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/scripts'
 $changedFileScript = $psSriptsPath + '/Get-ChangedFiles.ps1'
 $publishTargetScript = $psSriptsPath + '/Get-PublishTarget.ps1'
-$diffPath = $Env:BUILD_REPOSITORY_LOCALPATH + $psSriptsPath + "/modules/resources/*.bicep"
+$diffPath = $Env:BUILD_REPOSITORY_LOCALPATH + $repoName + "/modules/resources/*.bicep"
 $acrName =  "tuttuacrplatformiacsc01.azurecr.io"
 $version = 1.0.1.1
 
