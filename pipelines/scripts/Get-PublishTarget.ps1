@@ -13,15 +13,14 @@ param (
     [string]$version
 )
 
+# Remove the "modules/" prefix
+$stringWithoutPrefix = $file -replace 'modules/', ''
 
 Write-Output '$file are below here'
 Write-Output '-----------------'
 Write-Output $file
 
-## Remove the "modules/" prefix
-#$stringWithoutPrefix = $file -replace 'modules/', ''
-#
-## Remove the ".bicep" suffix
+# Remove the ".bicep" suffix
 #$moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 #
 #Write-Output 'Cueent modules repo name is: --->'
