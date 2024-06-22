@@ -39,19 +39,19 @@ if ($diffOutput) {
     Write-Output "-----------------------"
 }
 
-# Split the diff output into an array of file paths
-$changedFiles = $diffOutput -split "`n"
-
-Write-Output 'Number of file changed'
-Write-Output '----------------------'
-Write-Output $changedFiles.Length
-
-foreach ($file in $changedFiles) {
-  Write-Output '$file'
-  Write-Output '-----'
-  Write-Output $file
-}
+## Split the diff output into an array of file paths
+#$changedFiles = $diffOutput -split "`n"
+#
+#Write-Output 'Number of file changed'
+#Write-Output '----------------------'
+#Write-Output $changedFiles.Length
+#
+#foreach ($file in $changedFiles) {
+#  Write-Output '$file'
+#  Write-Output '-----'
+#  Write-Output $file
+#}
 
 
 # Return changedFiles
-return $changedFiles
+#return $changedFiles

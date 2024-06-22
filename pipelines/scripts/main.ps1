@@ -14,7 +14,8 @@ $version = "1.0.1.1"
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
 # Call the script and capture the returned value using the call operator
-$changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
+#$changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
+& $changedFileScript -gitDiffPath  $gitDiffPath
 
 #Write-Output 'Number of files changed are : ' $changedFiles.Length
 
