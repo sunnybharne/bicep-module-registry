@@ -2,10 +2,6 @@
 
 #Variables
 # Define the path to the script to be called
-$repoName = 'bicep-module-registry'
-$psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/scripts'
-$changedFileScript = './pipelines/scripts/Get-ChangedFiles.ps1'
-$publishTargetScript = './pipelines/scripts/Get-PublishTarget.ps1'
 $gitDiffPath = 'modules/resources/*.bicep'
 $acrName =  "tuttuacrplatformiacsc01"
 $version = "1.0.1.1"
