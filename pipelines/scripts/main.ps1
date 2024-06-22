@@ -67,4 +67,5 @@ foreach ($file in $changedFiles) {
     Write-Output "Failed to publish $file with target $publishtarget"
     exit 1
     }
+  }
 }
