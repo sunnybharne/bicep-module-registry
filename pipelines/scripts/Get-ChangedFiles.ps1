@@ -42,12 +42,8 @@ if ($diffOutput) {
 # Split the diff output into an array of file paths
 $changedFiles = $diffOutput -split "`n"
 
-Write-Output $changedFiles.Length
 
-foreach ($file in $changedFiles) {
-  Write-Output $file
-}
 
 
 # Return changedFiles
-#return $changedFiles
+return $changedFiles
