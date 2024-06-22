@@ -44,4 +44,4 @@ if ($diffOutput) {
 
 
 # Return changedFiles
-$diffOutput
+#$diffOutput
