@@ -48,4 +48,4 @@ Write-Output $Env:BUILD_REPOSITORY_LOCALPATH
     #Write-Output "Failed to publish $file"
     #exit 1
     #}
-}
+#}
