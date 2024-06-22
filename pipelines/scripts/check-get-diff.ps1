@@ -1,66 +1,68 @@
 #!/usr/bin/env pwsh
 
-# Parameters
-#param (
-#    [string]$acrName = "yourACRName",
-#    [string]$resourceGroupName = "yourResourceGroupName",
-#    [string]$subscriptionId = "yourSubscriptionId",
-#    [string]$acrRepository = "yourRepositoryName"
-#)
-
-
 # Change the directory to the repository root
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
-# Get the number of commits in the repository
-$commitCount = git rev-list --count HEAD
+# Define the path to the script to be called
+$scriptPath = "./Get-ChangedFiles.ps1"
 
-# Check if there are at least two commits
-if ($commitCount -lt 2) {
-    Write-Output "Not enough commits to perform diff"
-    exit 0
-}
+# Define the parameter for the called script
+$gitDiffPath = "modules/resources/*.bicep"
 
-# Get the hash of the latest commit in the current branch
-$currentCommitHash = git rev-parse HEAD
+# Call the script and capture the returned value using the call operator
+$changedFiles = & $scriptPath -gitDiffPath $gitDiffPath
 
-# Get the hash of the parent commit
-$parentCommitHash = git rev-parse HEAD^
+Write-Output $changedFiles
 
-# Check if there are changes in .bicep files in the 'modules/resources' folder between the current and parent commits
-$diffOutput = git diff --name-only $parentCommitHash $currentCommitHash -- modules/resources/*.bicep
+## Get the number of commits in the repository
+#$commitCount = git rev-list --count HEAD
+#
+## Check if there are at least two commits
+#if ($commitCount -lt 2) {
+#    Write-Output "Not enough commits to perform diff"
+#    exit 0
+#}
+#
+## Get the hash of the latest commit in the current branch
+#$currentCommitHash = git rev-parse HEAD
+#
+## Get the hash of the parent commit
+#$parentCommitHash = git rev-parse HEAD^
+#
+## Check if there are changes in .bicep files in the 'modules/resources' folder between the current and parent commits
+#$diffOutput = git diff --name-only $parentCommitHash $currentCommitHash -- modules/resources/*.bicep
+#
+## Print all changed .bicep files
+#if ($diffOutput) {
+#    Write-Output "Changed modules"
+#    Write-Output "---------------------"
+#    $diffOutput | ForEach-Object { Write-Output $_ }
+#} else {
+#    Write-Output "No .bicep files changed"
+#    Write-Output "-----------------------"
+#}
+#
+## Split the diff output into an array of file paths
+#$changedFiles = $diffOutput -split "`n"
 
-# Print all changed .bicep files
-if ($diffOutput) {
-    Write-Output "Changed modules"
-    Write-Output "---------------------"
-    $diffOutput | ForEach-Object { Write-Output $_ }
-} else {
-    Write-Output "No .bicep files changed"
-    Write-Output "-----------------------"
-}
-
-# Split the diff output into an array of file paths
-$changedFiles = $diffOutput -split "`n"
 
 
-
-az acr login -n tuttuacrplatformiacsc01
-
-# Loop through each changed .bicep file and publish to ACR
-foreach ($file in $changedFiles) {
-
-  # Remove the "modules/" prefix
-  $stringWithoutPrefix = $file -replace 'modules/resources/', ''
-
-  # Remove the ".bicep" suffix
-  $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
-
-  $publishtarget = 'br:tuttuacrplatformiacsc01.azurecr.io/resource/'+ $moduleRepoName + ':1.0.1'
-
-  Write-Output $publishtarget
-
-  az bicep publish -f $file --target $publishtarget
+#az acr login -n tuttuacrplatformiacsc01
+#
+## Loop through each changed .bicep file and publish to ACR
+#foreach ($file in $changedFiles) {
+#
+#  # Remove the "modules/" prefix
+#  $stringWithoutPrefix = $file -replace 'modules/resources/', ''
+#
+#  # Remove the ".bicep" suffix
+#  $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
+#
+#  $publishtarget = 'br:tuttuacrplatformiacsc01.azurecr.io/resource/'+ $moduleRepoName + ':1.0.1'
+#
+#  Write-Output $publishtarget
+#
+#  az bicep publish -f $file --target $publishtarget
  
   #if ($file) {
     # Construct the ACR image name and tag
@@ -76,4 +78,4 @@ foreach ($file in $changedFiles) {
     #Write-Output "Failed to publish $file"
     #exit 1
     #}
-}
+#}
