@@ -7,7 +7,7 @@ $psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/
 $changedFileScript = './pipelines/scripts/Get-ChangedFiles.ps1'
 $publishTargetScript = './pipelines/scripts/Get-PublishTarget.ps1'
 $gitDiffPath = 'modules/resources/*.bicep'
-$acrName =  "tuttuacrplatformiacsc01.azurecr.io"
+$acrName =  "tuttuacrplatformiacsc01"
 $version = "1.0.1.1"
 
 # Change the directory to the repository root
@@ -56,7 +56,7 @@ foreach ($file in $changedFiles) {
     # Remove the ".bicep" suffix
     $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
     # Publish target
-    $publishtarget = 'br:' + $acrName + '/'+ $moduleRepoName + ':' + $version
+    $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
 
     # Publish the Bicep file to ACR
     Write-Output "Publishing $file to $publishtarget"
