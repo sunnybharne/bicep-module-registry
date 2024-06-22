@@ -18,7 +18,7 @@ $stringWithoutPrefix = $file -replace 'modules/', ''
 
 Write-Output '$file are below here'
 Write-Output '-----------------'
-Write-Output $file
+Write-Output $stringWithoutPrefix
 
 # Remove the ".bicep" suffix
 #$moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
