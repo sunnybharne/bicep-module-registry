@@ -34,6 +34,6 @@ jobs:
         scriptArguments:
           -gitDiffPath 'modules/resources/*.bicep'
         azurePowerShellVersion: latestVersion
-        # FailOnStandardError: true
+        FailOnStandardError: true
         errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
         pwsh: true
