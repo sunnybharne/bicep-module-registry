@@ -2,19 +2,27 @@
 
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory = $true, Position = 0, HelpMessage = "Bicep module location")]
+    [Parameter(Mandatory =$true, Position = 1, HelpMessage = "Container registry")]
+    [ValidateNotNullOrEmpty()]
+    [string]$acr
+
+    [Parameter(Mandatory =$true, Position = 0, HelpMessage = "Module file location")]
     [ValidateNotNullOrEmpty()]
     [ValidateSet("modules/resources/*.bicep", "modules/services/*.bicep", "modules/products/*.bicep")]
-    [string]$gitDiffPath
+    [string]$file
+
+    [Parameter(Mandatory =$true, Position = 2, HelpMessage = "Module version")]
+    [ValidateNotNullOrEmpty()]
+    [string]$version
 )
 
 # Remove the "modules/" prefix
-$stringWithoutPrefix = $file -replace 'modules/resources/', ''
+$stringWithoutPrefix = $file -replace 'modules/', ''
 
 # Remove the ".bicep" suffix
 $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
 
-$publishtarget = 'br:tuttuacrplatformiacsc01.azurecr.io/resource/'+ $moduleRepoName + ':1.0.1'
+$publishtarget = 'br:' + $acr + '/'+ $moduleRepoName + ':' + $version
 
 Write-Output $publishtarget
 
