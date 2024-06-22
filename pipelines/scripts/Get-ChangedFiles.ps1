@@ -44,11 +44,9 @@ $changedFiles = $diffOutput -split "`n"
 
 Write-Output $changedFiles.Length
 
-#foreach ($file in $changedFiles) {
-#  Write-Output '$file'
-#  Write-Output '-----'
-#  Write-Output $file
-#}
+foreach ($file in $changedFiles) {
+  Write-Output $file
+}
 
 
 # Return changedFiles
