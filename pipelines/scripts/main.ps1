@@ -7,7 +7,7 @@ $repoName = 'bicep-module-registry'
 $psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/scripts'
 $changedFileScript = './pipelines/scripts/Get-ChangedFiles.ps1'
 #$publishTargetScript = './pipelines/scripts/.ps1'
-$diffDiffPath = "modules/resources/*.bicep"
+$gitDiffPath = 'modules/resources/*.bicep'
 $acrName =  "tuttuacrplatformiacsc01.azurecr.io"
 $version = 1.0.1.1
 
@@ -20,7 +20,7 @@ Write-Output $diffPath
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
 # Call the script and capture the returned value using the call operator
-$changedFiles = & $changedFileScript -gitDiffPath 'modules/resources/*.bicep'
+$changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
 
 Write-Output 'writing changefiles'
 Write-Output $changedFiles
