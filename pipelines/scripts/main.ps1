@@ -15,7 +15,7 @@ Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
 # Call the script and capture the returned value using the call operator
 #$changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
-$changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
+$diffFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
 
 #Write-Output $changedFiles.Length
 
