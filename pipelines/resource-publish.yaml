@@ -30,11 +30,10 @@ jobs:
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         scriptType: filePath # | 'InlineScript'
-        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/check-get-diff.ps1
-        # scriptArguments:
-        #   -Arg1 val1 `
-        #   -Arg2 val2 `
-        #   -Arg3 val3
+        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/Get-Gir-Diff-Files.ps1
+        # scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/check-get-diff.ps1
+        scriptArguments:
+          -gitDiffPath 'modules/resources/*.bicep'
         azurePowerShellVersion: latestVersion
         FailOnStandardError: true
         errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'

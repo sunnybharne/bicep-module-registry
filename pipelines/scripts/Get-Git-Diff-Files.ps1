@@ -5,7 +5,7 @@ param (
     [Parameter(Mandatory = $true, Position = 0, HelpMessage = "Bicep module location")]
     [ValidateNotNullOrEmpty()]
     [ValidateSet("modules/resources/*.bicep", "modules/services/*.bicep", "modules/products/*.bicep")]
-    [string]$gitDiffPath,
+    [string]$gitDiffPath
 )
 
 # Change the directory to the repository root
