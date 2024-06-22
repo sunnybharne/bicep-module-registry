@@ -18,8 +18,6 @@ $changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
 
 #az acr login -n tuttuacrplatformiacsc01
 
-Write-Output 'Before for loop'
-
 # Loop through each changed .bicep file and publish to ACR
 foreach ($file in $changedFiles) {
 
