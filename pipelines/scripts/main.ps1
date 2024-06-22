@@ -16,7 +16,7 @@ Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 # Call the script and capture the returned value using the call operator
 $changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
 
-Write-Output 'Number of files changed are : $changedFiles.Length'
+Write-Output 'Number of files changed are : ' $changedFiles.Length
 
 #az acr login -n tuttuacrplatformiacsc01
 
