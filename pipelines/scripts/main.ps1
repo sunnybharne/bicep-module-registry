@@ -8,7 +8,7 @@ $changedFileScript = './pipelines/scripts/Get-ChangedFiles.ps1'
 $publishTargetScript = './pipelines/scripts/Get-PublishTarget.ps1'
 $gitDiffPath = 'modules/resources/*.bicep'
 $acrName =  "tuttuacrplatformiacsc01.azurecr.io"
-$version = 1.0.1.1
+$version = "1.0.1.1"
 
 # Change the directory to the repository root
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
