@@ -42,8 +42,12 @@ if ($diffOutput) {
 # Split the diff output into an array of file paths
 $changedFiles = $diffOutput -split "`n"
 
+
+Write-Output "Number of changed files"
+Write-Output "-----------------------"
 Write-Output $changedFiles.Length
 
-Write-Output 'This is end of script'
 # Return changedFiles
+Write-Output "Returning below changed files"
+Write-Output "-----------------------------"
 return $changedFiles
