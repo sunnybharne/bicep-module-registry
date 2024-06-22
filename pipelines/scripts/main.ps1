@@ -16,13 +16,17 @@ Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 # Call the script and capture the returned value using the call operator
 $changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
 
+Write-Output 'Number of files changed are : ' + $changedFiles.Length
+
 #az acr login -n tuttuacrplatformiacsc01
 
 # Loop through each changed .bicep file and publish to ACR
-foreach ($file in $changedFiles) {
+#foreach ($file in $changedFiles) {
+
+  #Write-Output $file
 
   #$target = & $publishTargetScript -acr $acrName -file $file -version $version 
-  & $publishTargetScript -acr $acrName -file $file -version $version 
+  #& $publishTargetScript -acr $acrName -file $file -version $version 
 
   #az bicep publish -f $file --target $publishtarget
 
@@ -40,4 +44,4 @@ foreach ($file in $changedFiles) {
     #Write-Output "Failed to publish $file"
     #exit 1
     #}
-}
+#}
