@@ -1,10 +1,13 @@
 #!/usr/bin/env pwsh
 
-Write-Output 'echoing build repository location'
-Write-Output $Env:BUILD_REPOSITORY_LOCALPATH
-
 #Variables
 # Define the path to the script to be called
+
+$repoName = 'bicep-module-registry'
+$psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + $repoName + 'pipelines/scripts'
+
+
+
 #$scriptPath = "./Get-ChangedFiles.ps1"
 ## Define the parameter for the called script
 #$gitDiffPath = "modules/resources/*.bicep"
@@ -14,7 +17,10 @@ Write-Output $Env:BUILD_REPOSITORY_LOCALPATH
 #$acrName =  "tuttuacrplatformiacsc01.azurecr.io"
 ## version
 #$version = 1.0.1.1
-#
+
+Write-Output 'echoing build repository location'
+Write-Output $psSriptsPath
+
 ## Change the directory to the repository root
 #Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 #
