@@ -20,8 +20,7 @@ Write-Output $diffPath
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
 # Call the script and capture the returned value using the call operator
-#$changedFiles = & $changedFileScript -gitDiffPath $gitDiffPath
-$changedFiles = & $changedFileScript 
+$changedFiles = & $changedFileScript -gitDiffPath $gitDiffPath
 
 Write-Output 'writing changefiles'
 Write-Output $changedFiles
