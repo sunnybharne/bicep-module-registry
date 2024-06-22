@@ -30,7 +30,7 @@ jobs:
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         scriptType: filePath # | 'InlineScript'
-        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/Get-Gir-Diff-Files.ps1
+        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/Get-Git-Diff-Files.ps1
         # scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/check-get-diff.ps1
         scriptArguments:
           -gitDiffPath 'modules/resources/*.bicep'
