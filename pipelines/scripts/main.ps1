@@ -44,36 +44,27 @@ if ($diffOutput) {
 # Split the diff output into an array of file paths
 $changedFiles = $diffOutput -split "`n"
 
-#az acr login -n tuttuacrplatformiacsc01
+az acr login -n $acrName
 
 # Loop through each changed .bicep file and publish to ACR
 foreach ($file in $changedFiles) {
 
-  # Remove the "modules/" prefix
-  $stringWithoutPrefix = $file -replace 'modules/', ''
-
-  # Remove the ".bicep" suffix
-  $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
-
-  # Publish target
-  $publishtarget = 'br:' + $acrName + '/'+ $moduleRepoName + ':' + $version
-
-  Write-Output $publishtarget
-  
-  #az bicep publish -f $file --target $publishtarget
-
-  #if ($file) {
-    # Construct the ACR image name and tag
-    #$imageName = [System.IO.Path]::GetFileNameWithoutExtension($file)
-    #$acrImageTag = "$acrName.azurecr.io/$acrRepository/$imageName:latest"
+  if ($file) {
+    # Construct the target
+    # Remove the "modules/" prefix
+    $stringWithoutPrefix = $file -replace 'modules/', ''
+    # Remove the ".bicep" suffix
+    $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
+    # Publish target
+    $publishtarget = 'br:' + $acrName + '/'+ $moduleRepoName + ':' + $version
 
     # Publish the Bicep file to ACR
-    #Write-Output "Publishing $file to $acrImageTag"
-    #az bicep publish --file $file --target $acrImageTag
+    Write-Output "Publishing $file to $publishtarget"
+    az bicep publish -f $file --target $publishtarget
 
     # Check if the publish was successful
-    #if ($LASTEXITCODE -ne 0) {
-    #Write-Output "Failed to publish $file"
-    #exit 1
-    #}
+    if ($LASTEXITCODE -ne 0) {
+    Write-Output "Failed to publish $file with target $publishtarget"
+    exit 1
+    }
 }
