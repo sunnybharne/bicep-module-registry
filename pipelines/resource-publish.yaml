@@ -30,7 +30,7 @@ jobs:
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         scriptType: filePath # | 'InlineScript'
-        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/Get-ChangedFiles.ps1
+        scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/main.ps1
         scriptArguments:
           -gitDiffPath 'modules/resources/*.bicep'
         azurePowerShellVersion: latestVersion
