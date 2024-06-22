@@ -5,22 +5,19 @@
 
 $repoName = 'bicep-module-registry'
 $psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/scripts'
-$changedFileScript = $psSriptsPath + 'Get-ChangedFiles.ps1'
-$publishTargetScript = $psSriptsPath + 'Get-PublishTarget.ps1'
-
-#$scriptPath = "./Get-ChangedFiles.ps1"
-## Define the parameter for the called script
-#$gitDiffPath = "modules/resources/*.bicep"
-## Define the path to the script to be called
-#$publishTargetScript = "./Get-PublishTarget.ps1"
-## Acr name
-#$acrName =  "tuttuacrplatformiacsc01.azurecr.io"
-## version
-#$version = 1.0.1.1
+$changedFileScript = $psSriptsPath + '/Get-ChangedFiles.ps1'
+$publishTargetScript = $psSriptsPath + '/Get-PublishTarget.ps1'
+# Define the parameter for the called script
+$diffPath = $Env:BUILD_REPOSITORY_LOCALPATH + "/modules/resources/*.bicep"
+# Acr name
+$acrName =  "tuttuacrplatformiacsc01.azurecr.io"
+# version
+$version = 1.0.1.1
 
 Write-Output 'echoing build repository location'
 Write-Output $changedFileScript
 Write-Output $publishTargetScript
+Write-Output $diffPath
 
 ## Change the directory to the repository root
 #Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
