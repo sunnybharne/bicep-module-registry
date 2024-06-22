@@ -14,7 +14,7 @@ $version = "1.0.1.1"
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
 # Call the script and capture the returned value using the call operator
-$changedFilesArray = & $changedFileScript -gitDiffPath  $gitDiffPath
+$changedFilesArray = (& $changedFileScript -gitDiffPath  $gitDiffPath)
 
 Write-Output 'Writing changeFiles lenght in main file'
 Write-Output '---------------------------------------'
