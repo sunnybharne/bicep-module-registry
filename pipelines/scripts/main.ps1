@@ -15,13 +15,13 @@ Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
 # Call the script and capture the returned value using the call operator
 #$changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
-$changedFiles = & $changedFileScript -gitDiffPath  $gitDiffPath
+& $changedFileScript -gitDiffPath  $gitDiffPath
 
-Write-Output $changedFiles.Length
+#Write-Output $changedFiles.Length
 
-foreach ($file in $changedFiles) {
-  Write-Output $file
-}
+#foreach ($file in $changedFiles) {
+#  Write-Output $file
+#}
 
 #Write-Output 'Number of files changed are : ' $changedFiles.Length
 

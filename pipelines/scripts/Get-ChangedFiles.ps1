@@ -40,10 +40,7 @@ if ($diffOutput) {
 }
 
 # Split the diff output into an array of file paths
-$changedFiles = $diffOutput -split "`n"
-
-
-
+#$changedFiles = $diffOutput -split "`n"
 
 # Return changedFiles
-return $changedFiles
+return $diffOutput
