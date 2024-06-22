@@ -4,7 +4,7 @@
 # Define the path to the script to be called
 
 $repoName = 'bicep-module-registry'
-$psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + $repoName + 'pipelines/scripts'
+$psSriptsPath = $Env:BUILD_REPOSITORY_LOCALPATH + '/' + $repoName + '/pipelines/scripts'
 
 
 
