@@ -21,7 +21,7 @@ Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
 
 # Call the script and capture the returned value using the call operator
 #$changedFiles = & "$changedFileScript -gitDiffPath $gitDiffPath"
-$changedFiles = & "./Get-ChangedFiles.ps1"
+$changedFiles = & "./pipelines/scripts/Get-ChangedFiles.ps1"
 
 Write-Output 'writing changefiles'
 Write-Output $changedFiles
