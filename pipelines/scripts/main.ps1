@@ -16,12 +16,15 @@ Write-Output $changedFileScript
 Write-Output $publishTargetScript
 Write-Output $diffPath
 
-## Change the directory to the repository root
-#Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
-#
-## Call the script and capture the returned value using the call operator
-#$changedFiles = & $scriptPath -gitDiffPath $gitDiffPath
-#
+# Change the directory to the repository root
+Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
+
+# Call the script and capture the returned value using the call operator
+$changedFiles = & $changedFileScript -gitDiffPath $gitDiffPath
+
+Write-Output 'writing changefiles'
+Write-Output $changedFiles
+
 #az acr login -n tuttuacrplatformiacsc01
 #
 ## Loop through each changed .bicep file and publish to ACR
