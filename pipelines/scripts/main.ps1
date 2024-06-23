@@ -78,5 +78,3 @@ if ($diffOutput) {
     Write-Output "End of script"
 }
 
-}
-
