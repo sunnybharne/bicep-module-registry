@@ -52,14 +52,17 @@ if ($diffOutput) {
 
       if ($file) {
         # Construct the target
+        Write-Output "File"
+        Write-Output "----"
+        Write-Output $file
+
         # Remove the "modules/" prefix
         $stringWithoutPrefix = $file -replace 'modules/', ''
         
         $moduleRepoName = $stringWithoutPrefix -replace '\/[^\/]+\.bicep', ''
 
         # Publish target
-        #$publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
-        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + '2.0.2.2'
+        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + '4.0.2.2'
 
         # Publish the Bicep file to ACR
         Write-Output "Publishing $file to $publishtarget"
