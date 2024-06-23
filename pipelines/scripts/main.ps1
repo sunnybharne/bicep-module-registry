@@ -55,7 +55,8 @@ if ($diffOutput) {
         # Remove the "modules/" prefix
         $stringWithoutPrefix = $file -replace 'modules/', ''
         # Remove the ".bicep" suffix
-        $moduleRepoName = $stringWithoutPrefix -replace "/*.bicep", ''
+        #$moduleRepoName = $stringWithoutPrefix -replace "/*.bicep", ''
+        $moduleRepoName = $stringWithoutPrefix -replace '\\[^\\]+\.bicep$', ''
 
 
         # Publish target
