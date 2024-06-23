@@ -27,7 +27,7 @@ resource acrResource 'Microsoft.ContainerRegistry/registries@2023-01-01-preview'
   tags: tags
   properties: {
     adminUserEnabled: false
-    zoneRedundancy: 'Enabled'
+    // zoneRedundancy: 'Enabled'
   }
 }
 
