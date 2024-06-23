@@ -55,9 +55,7 @@ if ($diffOutput) {
         # Remove the "modules/" prefix
         $stringWithoutPrefix = $file -replace 'modules/', ''
         
-        #$moduleRepoName = $stringWithoutPrefix -replace "/*.bicep", ''
         $moduleRepoName = $stringWithoutPrefix -replace '\/[^\/]+\.bicep', ''
-
 
         # Publish target
         #$publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
