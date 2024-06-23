@@ -3,16 +3,16 @@
 param (
     [Parameter(Mandatory = $true, Position = 0, HelpMessage = "Name of the Azure Container Registry")]
     [ValidateNotNullOrEmpty()]
-    [string]$acrName = "tuttuacrplatformiacsc01",
+    [string]$acrName,
 
     [Parameter(Mandatory = $true, Position = 1, HelpMessage = "Modules path with /*.bicep extention")]
     [ValidateNotNullOrEmpty()]
     [ValidateSet("modules/resources/*.bicep", "modules/services/*.bicep", "modules/products/*.bicep")]
-    [string]$gitDiffPath = "modules/resources/*.bicep",
+    [string]$gitDiffPath,
 
     [Parameter(Mandatory = $true, Position = 2, HelpMessage = "Version")]
     [ValidateNotNullOrEmpty()]
-    [string]$version = "1.0.1.0"
+    [string]$version
 )
 
 # Change the directory to the repository root
