@@ -1,10 +1,19 @@
 #!/usr/bin/env pwsh
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory = $true, Position = 0, HelpMessage = "Name of the Azure Container Registry")]
+    [ValidateNotNullOrEmpty()]
+    [string]$acrName = "tuttuacrplatformiacsc01",
 
-#Variables
-# Define the path to the script to be called
-$gitDiffPath = 'modules/resources/*.bicep'
-$acrName =  "tuttuacrplatformiacsc01"
-$version = "1.0.1.1"
+    [Parameter(Mandatory = $true, Position = 1, HelpMessage = "Modules path with /*.bicep extention")]
+    [ValidateNotNullOrEmpty()]
+    [ValidateSet("modules/resources/*.bicep", "modules/services/*.bicep", "modules/products/*.bicep")]
+    [string]$gitDiffPath = "modules/resources/*.bicep",
+
+    [Parameter(Mandatory = $true, Position = 2, HelpMessage = "Version")]
+    [ValidateNotNullOrEmpty()]
+    [string]$version = "1.0.1.0",
+)
 
 # Change the directory to the repository root
 Set-Location -Path $Env:BUILD_REPOSITORY_LOCALPATH
