@@ -34,7 +34,7 @@ jobs:
         scriptArguments:
           -acrName 'tuttuacrplatformiacsc01'
           -gitDiffPath 'modules/resources/*/*.bicep'
-          -version '0.2.3'
+          -version '0.3.3'
         azurePowerShellVersion: latestVersion
         FailOnStandardError: true
         errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
