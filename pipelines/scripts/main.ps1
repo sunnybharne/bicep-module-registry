@@ -41,38 +41,42 @@ if ($diffOutput) {
     Write-Output "Moified module files"
     Write-Output "---------------------"
     $diffOutput | ForEach-Object { Write-Output $_ }
+
+    # Split the diff output into an array of file paths
+    $changedFiles = $diffOutput -split "`n"
+
+    az acr login -n $acrName
+
+    # Loop through each changed .bicep file and publish to ACR
+    foreach ($file in $changedFiles) {
+
+      if ($file) {
+        # Construct the target
+        # Remove the "modules/" prefix
+        $stringWithoutPrefix = $file -replace 'modules/', ''
+        # Remove the ".bicep" suffix
+        $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
+        # Publish target
+        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
+
+        # Publish the Bicep file to ACR
+        Write-Output "Publishing $file to $publishtarget"
+        az bicep publish -f $file --target $publishtarget
+
+        ## Check if the publish was successful
+        if ($LASTEXITCODE -ne 0) {
+        Write-Output "Failed to publish $file with target $publishtarget"
+        exit 1
+        }
+      }
+    }
+
+    Write-Output "End of script"
 } else {
     Write-Output "No .bicep files changed"
     Write-Output "-----------------------"
+    Write-Output "End of script"
 }
 
-# Split the diff output into an array of file paths
-$changedFiles = $diffOutput -split "`n"
-
-az acr login -n $acrName
-
-# Loop through each changed .bicep file and publish to ACR
-foreach ($file in $changedFiles) {
-
-  if ($file) {
-    # Construct the target
-    # Remove the "modules/" prefix
-    $stringWithoutPrefix = $file -replace 'modules/', ''
-    # Remove the ".bicep" suffix
-    $moduleRepoName = $stringWithoutPrefix -replace '.bicep', ''
-    # Publish target
-    $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
-
-    # Publish the Bicep file to ACR
-    Write-Output "Publishing $file to $publishtarget"
-    az bicep publish -f $file --target $publishtarget
-
-    ## Check if the publish was successful
-    if ($LASTEXITCODE -ne 0) {
-    Write-Output "Failed to publish $file with target $publishtarget"
-    exit 1
-    }
-  }
 }
 
-Write-Output 'End of the script'
