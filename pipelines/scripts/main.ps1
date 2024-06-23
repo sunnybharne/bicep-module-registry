@@ -12,7 +12,7 @@ param (
 
     [Parameter(Mandatory = $true, Position = 2, HelpMessage = "Version")]
     [ValidateNotNullOrEmpty()]
-    [string]$version = "1.0.1.0",
+    [string]$version = "1.0.1.0"
 )
 
 # Change the directory to the repository root
