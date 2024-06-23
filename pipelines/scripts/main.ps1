@@ -52,16 +52,15 @@ if ($diffOutput) {
 
       if ($file) {
 
-
         # Remove the "modules/" prefix
-        $stringWithoutPrefix = $file -replace 'modules/', ''
-        
-        $moduleRepoName = $stringWithoutPrefix -replace '\/[^\/]+\.bicep', ''
+        $stringWithoutPrefix = $file -replace '\/[^\/]+\.bicep', ''
 
         # Construct the target
         Write-Output "File"
         Write-Output "----"
-        Write-Output $moduleRepoName
+        Write-Output $stringWithoutPrefix
+        
+        $moduleRepoName = $stringWithoutPrefix -replace 'modules/', ''
 
         # Publish target
         $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + '5.0.2.2'
