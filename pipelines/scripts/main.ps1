@@ -55,15 +55,39 @@ if ($diffOutput) {
         # Remove the "modules/" prefix
         $stringWithoutPrefix = $file -replace '\/[^\/]+\.bicep', ''
 
+        # Define the path to the JSON file
+        $jsonFilePath = "$stringWithoutPrefix/metadata.json"
+
+        # Check if the file exists
+        if (-Not (Test-Path -Path $jsonFilePath)) {
+            Write-Error "The file $jsonFilePath does not exist."
+            exit 1
+        }
+
+        # Read the JSON file content
+        $jsonContent = Get-Content -Path $jsonFilePath -Raw
+
+        # Convert the JSON content to a PowerShell object
+        $jsonObject = $jsonContent | ConvertFrom-Json
+
+        # Check if the version property exists
+        if (-Not $jsonObject.PSObject.Properties["version"]) {
+            Write-Error "The version property does not exist in the JSON file."
+            exit 1
+        }
+
+        # Extract the version value
+        $version = $jsonObject.version
+
         # Construct the target
         Write-Output "File"
         Write-Output "----"
-        Write-Output $stringWithoutPrefix
+        Write-Output $jsonFilePath
         
         $moduleRepoName = $stringWithoutPrefix -replace 'modules/', ''
 
         # Publish target
-        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + '5.0.2.2'
+        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
 
         # Publish the Bicep file to ACR
         Write-Output "Publishing $file to $publishtarget"
