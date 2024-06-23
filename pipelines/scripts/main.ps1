@@ -8,11 +8,11 @@ param (
     [Parameter(Mandatory = $true, Position = 1, HelpMessage = "Modules path with /*.bicep extention")]
     [ValidateNotNullOrEmpty()]
     [ValidateSet("modules/resources/*/*.bicep", "modules/services/*/*.bicep", "modules/products/*/*.bicep")]
-    [string]$gitDiffPath,
+    [string]$gitDiffPath
 
-    [Parameter(Mandatory = $true, Position = 2, HelpMessage = "Version")]
-    [ValidateNotNullOrEmpty()]
-    [string]$version
+    #[Parameter(Mandatory = $true, Position = 2, HelpMessage = "Version")]
+    #[ValidateNotNullOrEmpty()]
+    #[string]$version
 )
 
 # Change the directory to the repository root
@@ -59,7 +59,8 @@ if ($diffOutput) {
 
 
         # Publish target
-        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
+        #$publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
+        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + '2.0.2.2'
 
         # Publish the Bicep file to ACR
         Write-Output "Publishing $file to $publishtarget"
