@@ -63,7 +63,7 @@ module userAssignedManagedIdentity 'modules/userAssignedManagedIdentity.bicep' =
 module containerRegistry 'modules/containerRegistry.bicep' = {
   name: containerRegistryName
   params:{
-    acrSku: 'Premium'
+    acrSku: 'Basic'
     location: location
     registryName: containerRegistryName
     tags: tags
@@ -75,16 +75,16 @@ module containerRegistry 'modules/containerRegistry.bicep' = {
   ]
 }
 
-module geoReplication 'modules/acrGeoReplication.bicep' = {
-  scope: resourceGroup(resourceGroupName)
-  dependsOn: [
-    containerRegistry
-  ]
-  name: 'geoReplication'
-  params:{
-    containerRegistryName: containerRegistryName
-  }
-}
+// module geoReplication 'modules/acrGeoReplication.bicep' = {
+//   scope: resourceGroup(resourceGroupName)
+//   dependsOn: [
+//     containerRegistry
+//   ]
+//   name: 'geoReplication'
+//   params:{
+//     containerRegistryName: containerRegistryName
+//   }
+// }
 
 module acrRoleAssignment 'modules/acrRoleAssignment.bicep' = {
   scope: resourceGroup(resourceGroupName)
