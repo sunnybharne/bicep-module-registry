@@ -5,7 +5,7 @@ trigger:
       - main
   paths:
     include:
-      - modules/resources/*.bicep
+      - modules/resources/*/*.bicep
 
 pool:
   name: 'selfhosted'
@@ -33,7 +33,7 @@ jobs:
         scriptPath: $(Build.SourcesDirectory)/pipelines/scripts/main.ps1
         scriptArguments:
           -acrName 'tuttuacrplatformiacsc01'
-          -gitDiffPath 'modules/resources/*.bicep'
+          -gitDiffPath 'modules/resources/*/*.bicep'
           -version '0.2.3'
         azurePowerShellVersion: latestVersion
         FailOnStandardError: true

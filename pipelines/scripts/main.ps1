@@ -7,7 +7,7 @@ param (
 
     [Parameter(Mandatory = $true, Position = 1, HelpMessage = "Modules path with /*.bicep extention")]
     [ValidateNotNullOrEmpty()]
-    [ValidateSet("modules/resources/*.bicep", "modules/services/*.bicep", "modules/products/*.bicep")]
+    [ValidateSet("modules/resources/*/*.bicep", "modules/services/*/*.bicep", "modules/products/*/*.bicep")]
     [string]$gitDiffPath,
 
     [Parameter(Mandatory = $true, Position = 2, HelpMessage = "Version")]
