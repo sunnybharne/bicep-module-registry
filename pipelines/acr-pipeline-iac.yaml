@@ -56,7 +56,6 @@ variables:
   csmParametersFile: './infra/acr/parameters/main.acr.bicepparam'
   deploymentScope: 'subscription'
   deploymentName: 'acr-pipeline-iac'
- 
 # Code covertage reporting ? this needs to be done with sonarqube 
 
 stages: # Deployment stages
