@@ -16,7 +16,7 @@ param (
 )
 
 # Load the token from the saved file
-$authToken = Get-Content -Path "$(Build.SourcesDirectory)/azureAuth.json" -Raw | ConvertFrom-Json
+$authToken = Get-Content -Path "azureAuth.json" -Raw | ConvertFrom-Json
 
 # Set the token as the environment variable
 $env:AZURE_AUTH_TOKEN = $authToken.accessToken
