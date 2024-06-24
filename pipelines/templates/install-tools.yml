@@ -72,8 +72,8 @@ steps:
         Write-Host 'Az.Accounts module not found. Installing now...'
         Install-Module -Name Az.Accounts -Force -Scope CurrentUser -AllowClobber -RequiredVersion 2.2.0
       } else {
-        $moduleVersion = (Get-Module -Name Az.Accounts -ListAvailable).Version
-        Write-Host 'Az.Accounts module found. Version: $moduleVersion'
+        \$moduleVersion = (Get-Module -Name Az.Accounts -ListAvailable).Version
+        Write-Host 'Az.Accounts module found. Version: \$moduleVersion'
       }
       "
     displayName: 'Check and Install Az.Accounts module'
