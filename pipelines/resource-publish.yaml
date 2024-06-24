@@ -32,24 +32,20 @@ jobs:
           docker --version   # Optional: Print Docker version
         else
         echo "Docker is not installed."
-
+        sudo apt-get install -y docker.io
+        sudo systemctl start docker
+        sudo systemctl enable docker
         fi
       displayName: 'Install Docker'
 
     - script: |
-        sudo dpkg --configure -a
-        sudo apt-get update
-        sudo apt-get install -y docker.io
-        CURRENT_USER=$(whoami)
-        sudo usermod -aG docker $CURRENT_USER
-        docker run hello-world
-        echo "Added $CURRENT_USER to the docker group."
-        groups $(whoami)
-        # Prompt to log out and log back in to apply changes
-        
-        sudo systemctl start docker
-        sudo systemctl enable docker
-      displayName: 'accesstoke'
+        # sudo dpkg --configure -a
+        # sudo apt-get update
+        sudo usermod -aG docker $(whoami)
+        # docker run hello-world
+        # echo "Added $CURRENT_USER to the docker group."
+        # groups $(whoami)
+      displayName: 'Add user'
 
     - task: AzureCLI@2
       displayName: Azure CLI
