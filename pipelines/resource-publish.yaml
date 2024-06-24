@@ -64,7 +64,7 @@ jobs:
     #   displayName: 'Add user'
     
     - task: AzurePowerShell@5
-      displayName: Git diff on resources modules
+      displayName: Git diff
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         scriptType: filePath 
