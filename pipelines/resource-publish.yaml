@@ -41,6 +41,7 @@ jobs:
     #   displayName: 'Install Docker'
 
     - script: |
+        az login
         az acr login -n tuttuacrplatformiacsc01 --expose-token
         # # Retrieve current username
         # CURRENT_USER=$(whoami)
