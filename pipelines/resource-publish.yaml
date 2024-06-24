@@ -25,7 +25,7 @@ jobs:
       displayName: 'Git Checkout'
 
     # Reference the 'install-tools.yml' file
-    - template: install-tools.yml
+    - template: templates/install-tools.yml
       parameters:
         displayNameAzCLI: 'Check and Install Az CLI'
         displayNameAzPowerShell: 'Check and Install Az PowerShell'
