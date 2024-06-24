@@ -8,7 +8,7 @@ trigger:
       - modules/resources/*/*.bicep
 
 pool:
-  name: 'selfhosted'
+  name: 'selfhostedvm'
 
 parameters:
 - name: azureServiceConnection
