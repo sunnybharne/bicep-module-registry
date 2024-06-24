@@ -25,12 +25,15 @@ jobs:
       persistCredentials: true
       displayName: 'Get checkout'
 
-    - task: UseDotNet@2
+    - script: |
+      sudo apt-get update
+      sudo apt-get install -y docker.io
       displayName: 'Install Docker'
-      inputs:
-        packageType: 'docker'
-        version: '3.0.0'
-        installationPath: $(Agent.ToolsDirectory)/docker
+
+    - script: |
+      sudo systemctl start docker
+      sudo systemctl enable docker
+      displayName: 'Start Docker Service'
 
     - task: AzurePowerShell@5
       displayName: Git diff on resources modules
