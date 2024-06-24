@@ -52,7 +52,7 @@ jobs:
       displayName: Azure CLI
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
-        scriptType: ps
+        scriptType: bash
         scriptLocation: inlineScript
         inlineScript: |
             az --version
