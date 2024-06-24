@@ -25,82 +25,90 @@ jobs:
       persistCredentials: true
       displayName: 'Get checkout'
 
-    
     - script: |
-        # Update the package lists
-        sudo apt-get update
+        # Function to check if Azure CLI is installed
+        function check_azure_cli {
+          if command -v az &> /dev/null; then
+            echo "Azure CLI is already installed."
+          else
+            echo "Azure CLI is not installed. Installing now..."
+            # Update the package lists
+            sudo apt-get update
+            # Install the Azure CLI
+            curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          fi
+        }
 
-        # Install the Azure CLI
-        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+        # Run the function
+        check_azure_cli
 
         # Verify the installation
         az --version
-      displayName: 'Install Azure CLI'
 
-    - script: |
-        # Install PowerShell
-        sudo apt-get install -y wget apt-transport-https software-properties-common
-        wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-        sudo dpkg -i packages-microsoft-prod.deb
-        sudo apt-get update
-        sudo apt-get install -y powershell
+      displayName: 'Check and Install Azure CLI'
 
-        # Verify the installation
-        pwsh -Command 'Get-Host'
-      displayName: 'Install PowerShell'
-
-    - script: |
-        if command -v docker &> /dev/null
-          then
-        echo "Docker is already installed."
-          docker --version   # Optional: Print Docker version
-        else
-        echo "Docker is not installed."
-        sudo apt-get install -y docker.io
-        sudo systemctl start docker
-        sudo systemctl enable docker
-        docker --version   # Optional: Print Docker version
-        fi
-      displayName: 'Install Docker'
-
-    - script: |
-          # Install Azure PowerShell module
-          pwsh -Command 'Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -AllowClobber'
-    
-          # Verify the module installation
-          pwsh -Command 'Get-Module -ListAvailable -Name Az'
-      displayName: 'Install Azure PowerShell Module'
-
-    - script: |
-        # sudo dpkg --configure -a
-        # sudo apt-get update
-        sudo usermod -aG docker $(whoami)
-        # docker run hello-world
-        # echo "Added $CURRENT_USER to the docker group."
-        # groups $(whoami)
-      displayName: 'Add user'
-
-    - task: AzureCLI@2
-      displayName: Azure CLI
-      inputs:
-        azureSubscription: '${{ parameters.azureServiceConnection }}'
-        scriptType: bash
-        scriptLocation: inlineScript
-        inlineScript: |
-            az --version
-            az account show
-            az account get-access-token --output json > $(Build.SourcesDirectory)/azureAuth.json
-
-    - task: AzurePowerShell@5
-      displayName: Git diff on resources modules
-      inputs:
-        azureSubscription: '${{ parameters.azureServiceConnection }}'
-        scriptType: filePath # | 'InlineScript'
-        scriptPath: pipelines/scripts/main.ps1
-        scriptArguments:
-          -acrName 'tuttuacrplatformiacsc01'
-          -gitDiffPath 'modules/resources/*/*.bicep'
-        azurePowerShellVersion: latestVersion
-        FailOnStandardError: true
-        errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
-        pwsh: true
+    # - script: |
+    #     # Update the package lists
+    #     sudo apt-get update
+    #     # Install the Azure CLI
+    #     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    #     # Verify the installation
+    #     az --version
+    #   displayName: 'Install Azure CLI'
+    #
+    # - script: |
+    #     # Install PowerShell
+    #     sudo apt-get install -y wget apt-transport-https software-properties-common
+    #     wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+    #     sudo dpkg -i packages-microsoft-prod.deb
+    #     sudo apt-get update
+    #     sudo apt-get install -y powershell
+    #
+    #     # Verify the installation
+    #     pwsh -Command 'Get-Host'
+    #   displayName: 'Install PowerShell'
+    #
+    # - script: |
+    #     if command -v docker &> /dev/null
+    #       then
+    #     echo "Docker is already installed."
+    #       docker --version   # Optional: Print Docker version
+    #     else
+    #     echo "Docker is not installed."
+    #     sudo apt-get install -y docker.io
+    #     sudo systemctl start docker
+    #     sudo systemctl enable docker
+    #     docker --version   # Optional: Print Docker version
+    #     fi
+    #   displayName: 'Install Docker'
+    #
+    # - script: |
+    #       # Install Azure PowerShell module
+    #       pwsh -Command 'Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -AllowClobber'
+    #
+    #       # Verify the module installation
+    #       pwsh -Command 'Get-Module -ListAvailable -Name Az'
+    #   displayName: 'Install Azure PowerShell Module'
+    #
+    # - script: |
+    #     # sudo dpkg --configure -a
+    #     # sudo apt-get update
+    #     sudo usermod -aG docker $(whoami)
+    #     # docker run hello-world
+    #     # echo "Added $CURRENT_USER to the docker group."
+    #     # groups $(whoami)
+    #   displayName: 'Add user'
+    #
+    # - task: AzurePowerShell@5
+    #   displayName: Git diff on resources modules
+    #   inputs:
+    #     azureSubscription: '${{ parameters.azureServiceConnection }}'
+    #     scriptType: filePath # | 'InlineScript'
+    #     scriptPath: pipelines/scripts/main.ps1
+    #     scriptArguments:
+    #       -acrName 'tuttuacrplatformiacsc01'
+    #       -gitDiffPath 'modules/resources/*/*.bicep'
+    #     azurePowerShellVersion: latestVersion
+    #     FailOnStandardError: true
+    #     errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
+    #     pwsh: true
