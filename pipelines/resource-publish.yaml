@@ -41,6 +41,14 @@ jobs:
       displayName: 'Install Docker'
 
     - script: |
+        # Retrieve current username
+        CURRENT_USER=$(whoami)
+        # Add current user to the docker group
+        sudo usermod -aG docker $CURRENT_USER
+        # Inform user about the action
+        echo "Added $CURRENT_USER to the docker group."
+        # Prompt to log out and log back in to apply changes
+        echo "Please log out and log back in to apply the group membership changes."
         sudo systemctl start docker
         sudo systemctl enable docker
       displayName: 'Start Docker Service'
