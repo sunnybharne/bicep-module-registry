@@ -8,9 +8,11 @@ parameters:
   - name: displayNameDocker
     type: string
     default: 'Check and Install Docker'
+  - name: displayNamePowerShell
+    type: string
+    default: 'Check and Install PowerShell'
 
 steps:
-
   - script: |
       # Check if Azure CLI is installed
       if ! command -v az &> /dev/null; then
@@ -24,8 +26,9 @@ steps:
 
   - script: |
       # Check if Azure PowerShell is installed
-      if ! command -v az &> /dev/null; then
+      if ! command -v pwsh &> /dev/null; then
         echo "Azure PowerShell is not installed. Installing now..."
+        sudo apt-get update
         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
       else
         echo "Azure PowerShell is already installed."
@@ -44,4 +47,19 @@ steps:
         echo "Docker is already installed."
       fi
     displayName: ${{ parameters.displayNameDocker }}
+
+  - script: |
+      # Check if PowerShell is installed
+      if ! command -v pwsh &> /dev/null; then
+        echo "PowerShell is not installed. Installing now..."
+        sudo apt-get update
+        sudo apt-get install -y wget apt-transport-https software-properties-common
+        wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+        sudo dpkg -i packages-microsoft-prod.deb
+        sudo apt-get update
+        sudo apt-get install -y powershell
+      else
+        echo "PowerShell is already installed."
+      fi
+    displayName: ${{ parameters.displayNamePowerShell }}
 

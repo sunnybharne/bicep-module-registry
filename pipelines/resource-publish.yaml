@@ -36,6 +36,7 @@ jobs:
         displayNameAzCLI: 'Check and Install Az CLI'
         displayNameAzPowerShell: 'Check and Install Az PowerShell'
         displayNameDocker: 'Check and Install Docker'
+        displayNamePowerShell: 'Check and Install PowerShell'
 
     # - task: AzurePowerShell@5
     #   inputs:
