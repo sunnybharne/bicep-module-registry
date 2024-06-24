@@ -40,16 +40,13 @@ jobs:
         sudo dpkg --configure -a
         sudo apt-get update
         sudo apt-get install -y docker.io
-        sudo usermod -aG docker $user
-        docker run hello-world
-        # Retrieve current username
         CURRENT_USER=$(whoami)
-        # Add current user to the docker group
         sudo usermod -aG docker $CURRENT_USER
-        # Inform user about the action
+        docker run hello-world
         echo "Added $CURRENT_USER to the docker group."
         groups $(whoami)
         # Prompt to log out and log back in to apply changes
+        
         sudo systemctl start docker
         sudo systemctl enable docker
       displayName: 'accesstoke'
