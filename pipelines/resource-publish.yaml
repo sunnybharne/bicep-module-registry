@@ -1,5 +1,4 @@
 # Azure DevOps pipeline to push resource modules
-
 name: 'Resource Module Publish'
 
 # Trigger pipeline on changes to main branch in specified paths
