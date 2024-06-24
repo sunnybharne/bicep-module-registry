@@ -1,4 +1,7 @@
+# Azure DevOps pipeline to push resource modules
 name: 'Resource Module Publish'
+
+# Trigger pipeline on changes to main branch in specified paths
 trigger:
   branches:
     include:
@@ -10,99 +13,26 @@ trigger:
 pool:
   name: 'selfhostedvm'
 
-parameters:
-- name: azureServiceConnection
-  type: string
-  default: 'id-platformiac-nonprod-sc-01'
-
 jobs:
 - job: 
   displayName: 'Push Resource Modules'
   steps:
 
-
     - checkout: self
       clean: true
-      fetchDepth: 2   
+      fetchDepth: 2
       persistCredentials: true
-      displayName: 'Git checkout'
+      displayName: 'Git Checkout'
 
+    # Reference the 'install-tools.yml' file
+    - template: install-tools.yml
+      parameters:
+        displayNameAzCLI: 'Check and Install Az CLI'
+        displayNameAzPowerShell: 'Check and Install Az PowerShell'
+        displayNameDocker: 'Check and Install Docker'
 
-    - script: |
-        # Function to check if Azure CLI is installed
-        function check_azure_cli {
-          if command -v az &> /dev/null; then
-            echo "Azure CLI is already installed."
-          else
-            echo "Azure CLI is not installed. Installing now..."
-            # Update the package lists
-            sudo apt-get update
-            # Install the Azure CLI
-            curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-          fi
-        }
-        # Run the function
-        check_azure_cli
-        # Verify the installation
-        az --version
-      displayName: 'Check and Install Az CLI'
-
-
-    - script: |
-        # Function to check if Azure PowerShell module is installed
-        check_az_powershell() {
-            if ! command -v az &> /dev/null; then
-                echo "Azure PowerShell is not installed. Installing now..."
-                # Install Azure PowerShell module
-                curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-            else
-                echo "Azure PowerShell is already installed."
-            fi
-        }
-        # Run the function to check and install Azure PowerShell
-        check_az_powershell
-        # Verify the installation
-        az --version
-      displayName: 'Check and Install Az PowerShell'
-
-
-    - script: |
-        # Function to check if Azure PowerShell module is installed
-        check_az_powershell() {
-            if pwsh -Command 'Get-Module -ListAvailable -Name Az' &> /dev/null; then
-                echo "Azure PowerShell module is already installed."
-            else
-                echo "Azure PowerShell module is not installed. Installing now..."
-                pwsh -Command 'Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -AllowClobber'
-            fi
-        }
-        # Run the function to check and install Azure PowerShell module
-        check_az_powershell
-        # Verify the module installation
-        pwsh -Command 'Get-Module -ListAvailable -Name Az'
-      displayName: 'Install Azure PowerShell Module'
-
-
-    - script: |
-        # Function to check if Docker is installed
-        check_docker() {
-            if command -v docker &> /dev/null; then
-                echo "Docker is already installed."
-                docker --version   # Optional: Print Docker version
-            else
-                echo "Docker is not installed. Installing now..."
-                sudo apt-get update
-                sudo apt-get install -y docker.io
-                sudo systemctl start docker
-                sudo systemctl enable docker
-                docker --version   # Optional: Print Docker version
-            fi
-        }
-        # Run the function to check and install Docker
-        check_docker
-      displayName: 'Check and Install Docker'
-
-
+    # Add more steps as needed
+          
     # - script: |
     #     # sudo dpkg --configure -a
     #     # sudo apt-get update
@@ -112,16 +42,16 @@ jobs:
     #     # groups $(whoami)
     #   displayName: 'Add user'
     
-    - task: AzurePowerShell@5
-      displayName: Git diff on resources modules
-      inputs:
-        azureSubscription: '${{ parameters.azureServiceConnection }}'
-        scriptType: filePath 
-        scriptPath: pipelines/scripts/main.ps1
-        scriptArguments:
-          -acrName 'tuttuacrplatformiacsc01'
-          -gitDiffPath 'modules/resources/*/*.bicep'
-        azurePowerShellVersion: latestVersion
-        FailOnStandardError: true
-        errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
-        pwsh: true
+    # - task: AzurePowerShell@5
+    #   displayName: Git diff on resources modules
+    #   inputs:
+    #     azureSubscription: '${{ parameters.azureServiceConnection }}'
+    #     scriptType: filePath 
+    #     scriptPath: pipelines/scripts/main.ps1
+    #     scriptArguments:
+    #       -acrName 'tuttuacrplatformiacsc01'
+    #       -gitDiffPath 'modules/resources/*/*.bicep'
+    #     azurePowerShellVersion: latestVersion
+    #     FailOnStandardError: true
+    #     errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
+    #     pwsh: true
