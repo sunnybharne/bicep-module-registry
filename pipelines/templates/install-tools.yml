@@ -9,42 +9,39 @@ parameters:
     type: string
     default: 'Check and Install Docker'
 
-jobs:
-- job: 
-  displayName: 'Install Tools'
-  steps:
+steps:
 
-    - script: |
-        # Check if Azure CLI is installed
-        if ! command -v az &> /dev/null; then
-          echo "Azure CLI is not installed. Installing now..."
-          sudo apt-get update
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-        else
-          echo "Azure CLI is already installed."
-        fi
-      displayName: ${{ parameters.displayNameAzCLI }}
+  - script: |
+      # Check if Azure CLI is installed
+      if ! command -v az &> /dev/null; then
+        echo "Azure CLI is not installed. Installing now..."
+        sudo apt-get update
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      else
+        echo "Azure CLI is already installed."
+      fi
+    displayName: ${{ parameters.displayNameAzCLI }}
 
-    - script: |
-        # Check if Azure PowerShell is installed
-        if ! command -v az &> /dev/null; then
-          echo "Azure PowerShell is not installed. Installing now..."
-          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-        else
-          echo "Azure PowerShell is already installed."
-        fi
-      displayName: ${{ parameters.displayNameAzPowerShell }}
+  - script: |
+      # Check if Azure PowerShell is installed
+      if ! command -v az &> /dev/null; then
+        echo "Azure PowerShell is not installed. Installing now..."
+        curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+      else
+        echo "Azure PowerShell is already installed."
+      fi
+    displayName: ${{ parameters.displayNameAzPowerShell }}
 
-    - script: |
-        # Check if Docker is installed
-        if ! command -v docker &> /dev/null; then
-          echo "Docker is not installed. Installing now..."
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-          sudo systemctl start docker
-          sudo systemctl enable docker
-        else
-          echo "Docker is already installed."
-        fi
-      displayName: ${{ parameters.displayNameDocker }}
+  - script: |
+      # Check if Docker is installed
+      if ! command -v docker &> /dev/null; then
+        echo "Docker is not installed. Installing now..."
+        sudo apt-get update
+        sudo apt-get install -y docker.io
+        sudo systemctl start docker
+        sudo systemctl enable docker
+      else
+        echo "Docker is already installed."
+      fi
+    displayName: ${{ parameters.displayNameDocker }}
 
