@@ -14,18 +14,18 @@ param (
     #[ValidateNotNullOrEmpty()]
     #[string]$version
 )
-
-# Load the token from the saved file
-$authToken = Get-Content -Path "azureAuth.json" -Raw | ConvertFrom-Json
-
-# Set the token as the environment variable
-$env:AZURE_AUTH_TOKEN = $authToken.accessToken
-
-# Use the token to authenticate Azure PowerShell commands
-Connect-AzAccount -AccessToken $env:AZURE_AUTH_TOKEN -AccountId 'b142e119-024f-4143-83b8-3311ccf34d3c' -TenantId '7d8e621a-3561-4cc4-9ee6-f03bc8610835'
-
-# Verify the login
-Get-AzContext
+#
+## Load the token from the saved file
+#$authToken = Get-Content -Path "azureAuth.json" -Raw | ConvertFrom-Json
+#
+## Set the token as the environment variable
+#$env:AZURE_AUTH_TOKEN = $authToken.accessToken
+#
+## Use the token to authenticate Azure PowerShell commands
+#Connect-AzAccount -AccessToken $env:AZURE_AUTH_TOKEN -AccountId 'b142e119-024f-4143-83b8-3311ccf34d3c' -TenantId '7d8e621a-3561-4cc4-9ee6-f03bc8610835'
+#
+## Verify the login
+#Get-AzContext
 
 
 
