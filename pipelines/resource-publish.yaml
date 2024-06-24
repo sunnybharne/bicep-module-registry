@@ -57,6 +57,7 @@ jobs:
         inlineScript: |
             az --version
             az account show
+            z account get-access-token --output json > $(Build.SourcesDirectory)/azureAuth.json
 
     - task: AzurePowerShell@5
       displayName: Git diff on resources modules
