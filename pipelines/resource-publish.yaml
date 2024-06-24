@@ -112,7 +112,7 @@ jobs:
     #     # echo "Added $CURRENT_USER to the docker group."
     #     # groups $(whoami)
     #   displayName: 'Add user'
-    #
+    
     # - task: AzurePowerShell@5
     #   displayName: Git diff on resources modules
     #   inputs:
