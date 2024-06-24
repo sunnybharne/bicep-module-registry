@@ -52,7 +52,6 @@ jobs:
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
         scriptType: ps
-        scriptLocation: inlineScript
         inlineScript: |
           az --version
           az account show
