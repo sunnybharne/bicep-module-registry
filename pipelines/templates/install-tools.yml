@@ -26,12 +26,12 @@ steps:
 
   - script: |
       # Check if Azure PowerShell (Az module) is installed
-      if ! command -v az &> /dev/null; then
+      if ! pwsh -Command "Get-Module -ListAvailable -Name Az.Accounts" &> /dev/null; then
         echo "Azure PowerShell (Az module) is not installed. Installing now..."
         sudo apt-get update
         sudo apt-get install -y curl
         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-        az extension add --name storage-preview
+        pwsh -Command "Install-Module -Name Az -Force -Scope CurrentUser"
       else
         echo "Azure PowerShell (Az module) is already installed."
       fi
@@ -66,12 +66,14 @@ steps:
     displayName: ${{ parameters.displayNamePowerShell }}
 
   - script: |
-      # PowerShell script to check and install Az.Accounts module
+      pwsh -Command "
+      # Check if Az.Accounts module is installed
       if (!(Get-Module -ListAvailable -Name Az.Accounts -ErrorAction SilentlyContinue)) {
-        Write-Host "Az.Accounts module not found. Installing now..."
+        Write-Host 'Az.Accounts module not found. Installing now...'
         Install-Module -Name Az.Accounts -Force -Scope CurrentUser -AllowClobber -RequiredVersion 2.2.0
       } else {
         $moduleVersion = (Get-Module -Name Az.Accounts -ListAvailable).Version
-        Write-Host "Az.Accounts module found. Version: $moduleVersion"
+        Write-Host 'Az.Accounts module found. Version: $moduleVersion'
       }
+      "
     displayName: 'Check and Install Az.Accounts module'
