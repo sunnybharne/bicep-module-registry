@@ -51,7 +51,6 @@ jobs:
       displayName: Azure CLI
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
-        scriptType: ps
         inlineScript: |
           az --version
           az account show
