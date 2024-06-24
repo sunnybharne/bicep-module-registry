@@ -32,6 +32,11 @@ jobs:
           docker --version   # Optional: Print Docker version
         else
         echo "Docker is not installed."
+
+        fi
+      displayName: 'Install Docker'
+
+    - script: |
         sudo dpkg --configure -a
         sudo apt-get update
         sudo apt-get install -y docker.io
@@ -47,11 +52,6 @@ jobs:
         # Prompt to log out and log back in to apply changes
         sudo systemctl start docker
         sudo systemctl enable docker
-
-        fi
-      displayName: 'Install Docker'
-
-    - script: |
       displayName: 'accesstoke'
 
     - task: AzurePowerShell@5
