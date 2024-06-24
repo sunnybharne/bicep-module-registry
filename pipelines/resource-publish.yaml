@@ -103,7 +103,6 @@ jobs:
       displayName: 'Check and Install Docker'
 
 
-    
     # - script: |
     #     # sudo dpkg --configure -a
     #     # sudo apt-get update
@@ -113,16 +112,16 @@ jobs:
     #     # groups $(whoami)
     #   displayName: 'Add user'
     
-    # - task: AzurePowerShell@5
-    #   displayName: Git diff on resources modules
-    #   inputs:
-    #     azureSubscription: '${{ parameters.azureServiceConnection }}'
-    #     scriptType: filePath # | 'InlineScript'
-    #     scriptPath: pipelines/scripts/main.ps1
-    #     scriptArguments:
-    #       -acrName 'tuttuacrplatformiacsc01'
-    #       -gitDiffPath 'modules/resources/*/*.bicep'
-    #     azurePowerShellVersion: latestVersion
-    #     FailOnStandardError: true
-    #     errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
-    #     pwsh: true
+    - task: AzurePowerShell@5
+      displayName: Git diff on resources modules
+      inputs:
+        azureSubscription: '${{ parameters.azureServiceConnection }}'
+        scriptType: filePath 
+        scriptPath: pipelines/scripts/main.ps1
+        scriptArguments:
+          -acrName 'tuttuacrplatformiacsc01'
+          -gitDiffPath 'modules/resources/*/*.bicep'
+        azurePowerShellVersion: latestVersion
+        FailOnStandardError: true
+        errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
+        pwsh: true
