@@ -66,12 +66,12 @@ steps:
     displayName: ${{ parameters.displayNamePowerShell }}
 
   - script: |
-      # Check if Az.Accounts module is installed with specific version
+      # PowerShell script to check and install Az.Accounts module
       if (!(Get-Module -ListAvailable -Name Az.Accounts -ErrorAction SilentlyContinue)) {
-        echo "Az.Accounts module not found. Installing now..."
+        Write-Host "Az.Accounts module not found. Installing now..."
         Install-Module -Name Az.Accounts -Force -Scope CurrentUser -AllowClobber -RequiredVersion 2.2.0
       } else {
         $moduleVersion = (Get-Module -Name Az.Accounts -ListAvailable).Version
-        echo "Az.Accounts module found. Version: $moduleVersion"
+        Write-Host "Az.Accounts module found. Version: $moduleVersion"
       }
     displayName: 'Check and Install Az.Accounts module'
