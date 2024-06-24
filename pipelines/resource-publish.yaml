@@ -9,6 +9,12 @@ trigger:
   paths:
     include:
       - modules/resources/*/*.bicep
+# Parameters section
+parameters:
+  - name: azureServiceConnection
+    type: string
+    default: 'id-platformiac-nonprod-sc-01' # Define your Azure service connection here
+
 
 pool:
   name: 'selfhostedvm'
