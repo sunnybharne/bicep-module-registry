@@ -13,7 +13,7 @@ trigger:
 parameters:
   - name: azureServiceConnection
     type: string
-    default: 'id-platformiac-nonprod-sc-01' # Define your Azure service connection here
+    default: 'tuttu-acrplatformiacsc-sc-01' # Define your Azure service connection here
 
 
 pool:
