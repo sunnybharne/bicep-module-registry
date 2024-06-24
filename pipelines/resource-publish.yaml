@@ -35,6 +35,7 @@ jobs:
         sudo apt-get install -y docker.io
         sudo systemctl start docker
         sudo systemctl enable docker
+        docker --version   # Optional: Print Docker version
         fi
       displayName: 'Install Docker'
 
@@ -51,9 +52,11 @@ jobs:
       displayName: Azure CLI
       inputs:
         azureSubscription: '${{ parameters.azureServiceConnection }}'
+        scriptType: ps
+        scriptLocation: inlineScript
         inlineScript: |
-          az --version
-          az account show
+            az --version
+            az account show
 
     - task: AzurePowerShell@5
       displayName: Git diff on resources modules
