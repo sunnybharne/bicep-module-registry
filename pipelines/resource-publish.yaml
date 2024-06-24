@@ -19,11 +19,14 @@ jobs:
 - job: 
   displayName: 'Push Resource Modules'
   steps:
+
+
     - checkout: self
       clean: true
       fetchDepth: 2   
       persistCredentials: true
       displayName: 'Git checkout'
+
 
     - script: |
         # Function to check if Azure CLI is installed
@@ -42,7 +45,8 @@ jobs:
         check_azure_cli
         # Verify the installation
         az --version
-      displayName: 'Check and Install Azure CLI'
+      displayName: 'Check and Install Az CLI'
+
 
     - script: |
         # Function to check if Azure PowerShell module is installed
@@ -59,57 +63,47 @@ jobs:
         check_az_powershell
         # Verify the installation
         az --version
-      displayName: 'Check and Install Azure PowerShell'
+      displayName: 'Check and Install Az PowerShell'
 
 
+    - script: |
+        # Function to check if Azure PowerShell module is installed
+        check_az_powershell() {
+            if pwsh -Command 'Get-Module -ListAvailable -Name Az' &> /dev/null; then
+                echo "Azure PowerShell module is already installed."
+            else
+                echo "Azure PowerShell module is not installed. Installing now..."
+                pwsh -Command 'Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -AllowClobber'
+            fi
+        }
+        # Run the function to check and install Azure PowerShell module
+        check_az_powershell
+        # Verify the module installation
+        pwsh -Command 'Get-Module -ListAvailable -Name Az'
+      displayName: 'Install Azure PowerShell Module'
 
 
+    - script: |
+        # Function to check if Docker is installed
+        check_docker() {
+            if command -v docker &> /dev/null; then
+                echo "Docker is already installed."
+                docker --version   # Optional: Print Docker version
+            else
+                echo "Docker is not installed. Installing now..."
+                sudo apt-get update
+                sudo apt-get install -y docker.io
+                sudo systemctl start docker
+                sudo systemctl enable docker
+                docker --version   # Optional: Print Docker version
+            fi
+        }
+        # Run the function to check and install Docker
+        check_docker
+      displayName: 'Check and Install Docker'
 
 
-
-    # - script: |
-    #     # Update the package lists
-    #     sudo apt-get update
-    #     # Install the Azure CLI
-    #     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-    #     # Verify the installation
-    #     az --version
-    #   displayName: 'Install Azure CLI'
-    #
-    # - script: |
-    #     # Install PowerShell
-    #     sudo apt-get install -y wget apt-transport-https software-properties-common
-    #     wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
-    #     sudo dpkg -i packages-microsoft-prod.deb
-    #     sudo apt-get update
-    #     sudo apt-get install -y powershell
-    #
-    #     # Verify the installation
-    #     pwsh -Command 'Get-Host'
-    #   displayName: 'Install PowerShell'
-    #
-    # - script: |
-    #     if command -v docker &> /dev/null
-    #       then
-    #     echo "Docker is already installed."
-    #       docker --version   # Optional: Print Docker version
-    #     else
-    #     echo "Docker is not installed."
-    #     sudo apt-get install -y docker.io
-    #     sudo systemctl start docker
-    #     sudo systemctl enable docker
-    #     docker --version   # Optional: Print Docker version
-    #     fi
-    #   displayName: 'Install Docker'
-    #
-    # - script: |
-    #       # Install Azure PowerShell module
-    #       pwsh -Command 'Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -AllowClobber'
-    #
-    #       # Verify the module installation
-    #       pwsh -Command 'Get-Module -ListAvailable -Name Az'
-    #   displayName: 'Install Azure PowerShell Module'
-    #
+    
     # - script: |
     #     # sudo dpkg --configure -a
     #     # sudo apt-get update
