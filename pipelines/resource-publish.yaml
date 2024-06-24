@@ -32,7 +32,6 @@ jobs:
         displayNameDocker: 'Check and Install Docker'
 
     # Add more steps as needed
-          
     # - script: |
     #     # sudo dpkg --configure -a
     #     # sudo apt-get update
