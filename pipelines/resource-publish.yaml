@@ -64,6 +64,14 @@ jobs:
       displayName: 'Install Docker'
 
     - script: |
+          # Install Azure PowerShell module
+          pwsh -Command 'Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force -AllowClobber'
+    
+          # Verify the module installation
+          pwsh -Command 'Get-Module -ListAvailable -Name Az'
+      displayName: 'Install Azure PowerShell Module'
+
+    - script: |
         # sudo dpkg --configure -a
         # sudo apt-get update
         sudo usermod -aG docker $(whoami)
