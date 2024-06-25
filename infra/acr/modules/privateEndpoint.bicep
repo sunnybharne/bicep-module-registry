@@ -1,6 +1,4 @@
-
 // Module to create a private endpoint for ACR
-
 @description('Location of the private endpoint')
 param location string
 
@@ -26,7 +24,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-05-01' = {
     }
     privateLinkServiceConnections: [
       {
-        name: '${containerRegistryName}-plsc'
+        name: '${containerRegistryName}-private-endpoint'
         properties: {
           privateLinkServiceId: resourceId('Microsoft.ContainerRegistry/registries', containerRegistryName)
           groupIds: ['registry']
@@ -48,7 +46,7 @@ resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
 
 resource privateDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
   parent: privateDnsZone
-  name: '${containerRegistryName}-link'
+  name: '${containerRegistryName}.private.azurecr.io-link'
   location: 'global'
   properties: {
     registrationEnabled: false
@@ -62,11 +60,11 @@ resource privateDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLin
 }
 
 resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-05-01' = {
-  name: 'private-endpoint/private-zone-group'
+  name: '${containerRegistryName}-private-endpoint/private-zone-group'
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: '${containerRegistryName}-private-dns-zone-config'
+        name: 'config1'
         properties: {
           privateDnsZoneId: privateDnsZone.id
         }
