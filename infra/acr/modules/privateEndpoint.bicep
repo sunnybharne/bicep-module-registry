@@ -55,7 +55,7 @@ resource privateDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLin
 }
 
 resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-05-01' = {
-  name: '${containerRegistryName}-zone-group'
+  name: 'private-zone-group'
   properties: {
     privateDnsZoneConfigs: [
       {
