@@ -97,7 +97,7 @@ if ($diffOutput) {
         $moduleRepoName = $stringWithoutPrefix -replace 'modules/', ''
 
         # Publish target
-        $publishtarget = 'br:' + $acrName + '.urecr.io/'+ $moduleRepoName + ':' + $version
+        $publishtarget = 'br:' + $acrName + 'azurecr.io/'+ $moduleRepoName + ':' + $version
 
         # Publish the Bicep file to ACR
         Write-Output "Publishing $file to $publishtarget"
