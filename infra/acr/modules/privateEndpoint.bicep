@@ -1,3 +1,4 @@
+
 // Module to create a private endpoint for ACR
 
 @description('Location of the private endpoint')
@@ -36,7 +37,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-05-01' = {
 }
 
 resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: '${containerRegistryName}-privateDns'
+  name: '${containerRegistryName}.private.azurecr.io'
   location: 'global'
   properties: {}
   tags: tags
