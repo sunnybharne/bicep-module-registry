@@ -41,7 +41,7 @@ trigger:
   # vmImage: 'macOS-latest'
       
 pool: # Define selfhosted pool for the pipeline
-  name: 'selfhosted'
+  name: 'selfhostedvm'
 
 # Parameters
 parameters:
