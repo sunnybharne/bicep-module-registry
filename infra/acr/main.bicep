@@ -25,6 +25,7 @@ param containerRegistryName string
 param userAssignedManagedIdentityName string
 
 // Description: Role definition ID for the ACR Push role
+@description('Role definition ID for the ACR Push role')
 param acrPushRoleDefinitionId string
 
 // Variable: Name for the ACR role assignment
@@ -68,7 +69,7 @@ module acrResourceGroup 'modules/resourceGroup.bicep' = {
 
 // Module: Create VNet with two subnets
 @description('Virtual Network with two subnets')
-module vnetModule 'modules/acrVnet.bicep' = {
+module vnetModule 'modules/vnet.bicep' = {
   name: 'vnetModuleDeployment'
   params: {
     vnetName: vnetName
@@ -79,9 +80,6 @@ module vnetModule 'modules/acrVnet.bicep' = {
     subnet2AddressPrefix: subnet2AddressPrefix
   }
   scope: resourceGroup(resourceGroupName)
-  dependsOn: [
-    acrResourceGroup
-  ]
 }
 
 // Module: Create user-assigned managed identity
@@ -113,6 +111,24 @@ module containerRegistry 'modules/containerRegistry.bicep' = {
   dependsOn: [
     acrResourceGroup
     userAssignedManagedIdentity
+  ]
+}
+
+// Module: Create private endpoint for ACR
+@description('Private endpoint for ACR')
+module privateEndpoint 'modules/privateEndpoint.bicep' = {
+  name: 'privateEndpointDeployment'
+  params: {
+    location: location
+    tags: tags
+    vnetName: vnetName
+    subnetName: subnet1Name
+    containerRegistryName: containerRegistryName
+  }
+  scope: resourceGroup(resourceGroupName)
+  dependsOn: [
+    containerRegistry
+    vnetModule
   ]
 }
 
