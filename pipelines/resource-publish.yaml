@@ -31,12 +31,12 @@ jobs:
       displayName: 'Git Checkout'
 
     # Reference the 'install-tools.yml' file
-    - template: templates/install-tools.yml
-      parameters:
-        displayNameAzCLI: 'Check and Install Az CLI'
-        displayNameAzPowerShell: 'Check and Install Az PowerShell'
-        displayNameDocker: 'Check and Install Docker'
-        displayNamePowerShell: 'Check and Install PowerShell'
+    # - template: templates/install-tools.yml
+    #   parameters:
+    #     displayNameAzCLI: 'Check and Install Az CLI'
+    #     displayNameAzPowerShell: 'Check and Install Az PowerShell'
+    #     displayNameDocker: 'Check and Install Docker'
+    #     displayNamePowerShell: 'Check and Install PowerShell'
 
     # - task: AzurePowerShell@5
     #   inputs:
@@ -76,4 +76,3 @@ jobs:
         azurePowerShellVersion: latestVersion
         FailOnStandardError: true
         errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
-        pwsh: true
