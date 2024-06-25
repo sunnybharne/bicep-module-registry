@@ -69,7 +69,7 @@ module acrResourceGroup 'modules/resourceGroup.bicep' = {
 
 // Module: Create VNet with two subnets
 @description('Virtual Network with two subnets')
-module vnetModule 'modules/vnet.bicep' = {
+module vnetModule 'modules/acrVnet.bicep' = {
   name: 'vnetModuleDeployment'
   params: {
     vnetName: vnetName
