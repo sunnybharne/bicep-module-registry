@@ -35,7 +35,7 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-11-01' = {
   }
 }
 
-resource privateDnsZoneGroup 'Microsoft.Network/privateDnsZoneGroups@2021-02-01' = {
+resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-11-01' = {
   name: '${containerRegistryName}-private-dns-zone-group'
   location: location
   properties: {
