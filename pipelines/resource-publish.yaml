@@ -76,3 +76,4 @@ jobs:
         azurePowerShellVersion: latestVersion
         FailOnStandardError: true
         errorActionPreference: 'stop' # | 'stop' | 'continue' | 'silentlyContinue'
+        pwsh: true
