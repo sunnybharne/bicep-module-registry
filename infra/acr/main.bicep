@@ -1,42 +1,63 @@
 targetScope = 'subscription'
 
+// Description: Location of the resource group
 @description('Location of the resource group')
 param location string
 
+// Description: Tags for the resource group
 @description('Tags for the resource group')
 param tags object
 
+// Description: Subscription ID
 @description('Subscription ID')
 param subscriptionId string
 
+// Description: Name of the resource group
 @description('Name of the resource group')
 param resourceGroupName string
 
+// Description: Name of the container registry
 @description('Name of the container registry')
 param containerRegistryName string
 
+// Description: Name of the managed identity
 @description('Name of the managed identity')
 param userAssignedManagedIdentityName string
 
+// Description: Role definition ID for the ACR Push role
 param acrPushRoleDefinitionId string
 
+// Variable: Name for the ACR role assignment
 var acrRollAssignementName = 'acr-push-roleassignment-sc-nonprod-01'
 
-// @description('roleDefinitionResourceId for the acr push role')
-// param roleDefinitionResourceId string
+// Description: The name of the Virtual Network
+@description('The name of the Virtual Network')
+param vnetName string
 
-//@description('Allowed IP addresses for the container registry')
-//param allowedIpAddresses string 
+// Description: The address prefix for the Virtual Network
+@description('The address prefix for the Virtual Network')
+param vnetAddressPrefix string
 
-//@description('acrPull Principal ID')
-//param acrPullPrincipalId string
+// Description: The name of the first subnet
+@description('The name of the first subnet')
+param subnet1Name string
 
-//@description('acrPull Role Definition ID')
-//param acrPullRoleId string
+// Description: The address prefix for the first subnet
+@description('The address prefix for the first subnet')
+param subnet1AddressPrefix string
 
-@description('acr resource group')
+// Description: The name of the second subnet
+@description('The name of the second subnet')
+param subnet2Name string
+
+// Description: The address prefix for the second subnet
+@description('The address prefix for the second subnet')
+param subnet2AddressPrefix string
+
+// Module: Create resource group for ACR
+@description('Resource group for ACR')
 module acrResourceGroup 'modules/resourceGroup.bicep' = {
-  name: resourceGroupName
+  name: 'acrResourceGroupDeployment'
   params:{
     resourceGroupName: resourceGroupName
     tags: tags
@@ -45,8 +66,28 @@ module acrResourceGroup 'modules/resourceGroup.bicep' = {
   scope: subscription(subscriptionId)
 }
 
+// Module: Create VNet with two subnets
+@description('Virtual Network with two subnets')
+module vnetModule 'modules/vnet.bicep' = {
+  name: 'vnetModuleDeployment'
+  params: {
+    vnetName: vnetName
+    vnetAddressPrefix: vnetAddressPrefix
+    subnet1Name: subnet1Name
+    subnet1AddressPrefix: subnet1AddressPrefix
+    subnet2Name: subnet2Name
+    subnet2AddressPrefix: subnet2AddressPrefix
+  }
+  scope: resourceGroup(resourceGroupName)
+  dependsOn: [
+    acrResourceGroup
+  ]
+}
+
+// Module: Create user-assigned managed identity
+@description('User-assigned managed identity')
 module userAssignedManagedIdentity 'modules/userAssignedManagedIdentity.bicep' = {
-  name: userAssignedManagedIdentityName
+  name: 'userAssignedManagedIdentityDeployment'
   params:{
     location: location
     tags: tags
@@ -58,44 +99,35 @@ module userAssignedManagedIdentity 'modules/userAssignedManagedIdentity.bicep' =
   ]
 }
 
-
-@description('container registry')
+// Module: Create container registry
+@description('Container registry')
 module containerRegistry 'modules/containerRegistry.bicep' = {
-  name: containerRegistryName
+  name: 'containerRegistryDeployment'
   params:{
     acrSku: 'Basic'
     location: location
     registryName: containerRegistryName
     tags: tags
   }
-  scope: resourceGroup(resourceGroupName) 
+  scope: resourceGroup(resourceGroupName)
   dependsOn: [
-    acrResourceGroup 
+    acrResourceGroup
     userAssignedManagedIdentity
   ]
 }
 
-// module geoReplication 'modules/acrGeoReplication.bicep' = {
-//   scope: resourceGroup(resourceGroupName)
-//   dependsOn: [
-//     containerRegistry
-//   ]
-//   name: 'geoReplication'
-//   params:{
-//     containerRegistryName: containerRegistryName
-//   }
-// }
-
+// Module: Assign ACR Push role to managed identity
+@description('Assign ACR Push role to managed identity')
 module acrRoleAssignment 'modules/acrRoleAssignment.bicep' = {
-  scope: resourceGroup(resourceGroupName)
-  dependsOn: [
-    containerRegistry
-    userAssignedManagedIdentity
-  ]
-  name: acrRollAssignementName
+  name: 'acrRoleAssignmentDeployment'
   params:{
     roleDefinitionID: acrPushRoleDefinitionId
     containerRegistryName: containerRegistryName
     principalID: userAssignedManagedIdentity.outputs.id
   }
+  scope: resourceGroup(resourceGroupName)
+  dependsOn: [
+    containerRegistry
+    userAssignedManagedIdentity
+  ]
 }
