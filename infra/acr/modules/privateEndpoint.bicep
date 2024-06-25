@@ -15,7 +15,7 @@ param subnetName string
 @description('Name of the container registry')
 param containerRegistryName string
 
-resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-02-01' = {
+resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-11-01' = {
   name: '${containerRegistryName}-private-endpoint'
   location: location
   tags: tags
