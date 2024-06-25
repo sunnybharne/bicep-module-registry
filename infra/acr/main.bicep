@@ -102,7 +102,7 @@ module userAssignedManagedIdentity 'modules/userAssignedManagedIdentity.bicep' =
 module containerRegistry 'modules/containerRegistry.bicep' = {
   name: 'containerRegistryDeployment'
   params:{
-    acrSku: 'Basic'
+    acrSku: 'Premium'
     location: location
     registryName: containerRegistryName
     tags: tags
