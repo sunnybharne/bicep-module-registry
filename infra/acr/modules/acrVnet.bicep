@@ -18,7 +18,7 @@ param subnet2Name string
 @description('The address prefix for the second subnet')
 param subnet2AddressPrefix string
 
-resource vnet 'Microsoft.Network/virtualNetworks@2022-01-01' = {
+resource vnet 'Microsoft.Network/virtualNetworks@2023-11-01' = {
   name: vnetName
   location: resourceGroup().location
   properties: {
