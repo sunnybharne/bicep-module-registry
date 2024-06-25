@@ -129,6 +129,7 @@ module privateEndpoint 'modules/privateEndpoint.bicep' = {
   dependsOn: [
     containerRegistry
     vnetModule
+    acrResourceGroup
   ]
 }
 

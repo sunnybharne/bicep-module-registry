@@ -41,6 +41,9 @@ resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
   location: 'global'
   properties: {}
   tags: tags
+  dependsOn: [
+    privateEndpoint
+  ]
 }
 
 resource privateDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
@@ -53,6 +56,9 @@ resource privateDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLin
       id: resourceId('Microsoft.Network/virtualNetworks', vnetName)
     }
   }
+  dependsOn: [
+    privateEndpoint
+  ]
 }
 
 resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-05-01' = {
