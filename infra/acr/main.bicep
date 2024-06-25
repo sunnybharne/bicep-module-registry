@@ -29,7 +29,7 @@ param userAssignedManagedIdentityName string
 param acrPushRoleDefinitionId string
 
 // Variable: Name for the ACR role assignment
-var acrRollAssignementName = 'acr-push-roleassignment-sc-nonprod-01'
+// var acrRollAssignementName = 'acr-push-roleassignment-sc-nonprod-01'
 
 // Description: The name of the Virtual Network
 @description('The name of the Virtual Network')
