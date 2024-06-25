@@ -16,7 +16,7 @@ param (
 )
 #
 ## Load the token from the saved file
-#$authToken = Get-Content -Path "azureAuth.json" -Raw | ConvertFrom-Json
+#$authToken = Get-Content -Path "ureAuth.json" -Raw | ConvertFrom-Json
 #
 ## Set the token as the environment variable
 #$env:AZURE_AUTH_TOKEN = $authToken.accessToken
@@ -55,7 +55,7 @@ if ($diffOutput) {
     # Split the diff output into an array of file paths
     $changedFiles = $diffOutput -split "`n"
 
-    #az acr login -n $acrName
+    # acr login -n $acrName
 
     # Loop through each changed .bicep file and publish to ACR
     foreach ($file in $changedFiles) {
@@ -97,7 +97,7 @@ if ($diffOutput) {
         $moduleRepoName = $stringWithoutPrefix -replace 'modules/', ''
 
         # Publish target
-        $publishtarget = 'br:' + $acrName + '.azurecr.io/'+ $moduleRepoName + ':' + $version
+        $publishtarget = 'br:' + $acrName + '.urecr.io/'+ $moduleRepoName + ':' + $version
 
         # Publish the Bicep file to ACR
         Write-Output "Publishing $file to $publishtarget"
