@@ -15,7 +15,7 @@ param subnetName string
 @description('Name of the container registry')
 param containerRegistryName string
 
-resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-11-01' = {
+resource privateEndpoint 'Microsoft.Network/privateEndpoints@2021-05-01' = {
   name: '${containerRegistryName}-private-endpoint'
   location: location
   tags: tags
@@ -35,14 +35,33 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-11-01' = {
   }
 }
 
-resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-11-01' = {
+resource privateDnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
+  name: '${containerRegistryName}-privateDns'
+  location: 'global'
+  properties: {}
+  tags: tags
+}
+
+resource privateDnsZoneLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
+  parent: privateDnsZone
+  name: '${containerRegistryName}-link'
+  location: 'global'
+  properties: {
+    registrationEnabled: false
+    virtualNetwork: {
+      id: resourceId('Microsoft.Network/virtualNetworks', vnetName)
+    }
+  }
+}
+
+resource privateDnsZoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2021-05-01' = {
   name: '${containerRegistryName}-private-dns-zone-group'
   properties: {
     privateDnsZoneConfigs: [
       {
-        name: 'privatelink.azurecr.io'
+        name: '${containerRegistryName}-private-dns-zone-config'
         properties: {
-          privateDnsZoneId: resourceId('Microsoft.Network/privateDnsZones', 'privatelink.azurecr.io')
+          privateDnsZoneId: privateDnsZone.id
         }
       }
     ]
