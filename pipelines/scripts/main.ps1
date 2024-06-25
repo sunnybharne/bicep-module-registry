@@ -28,7 +28,6 @@ param (
 #Get-AzContext
 
 
-
 # Get the number of commits in the repository
 $commitCount = git rev-list --count HEAD
 
@@ -56,7 +55,7 @@ if ($diffOutput) {
     # Split the diff output into an array of file paths
     $changedFiles = $diffOutput -split "`n"
 
-    az acr login -n $acrName
+    #az acr login -n $acrName
 
     # Loop through each changed .bicep file and publish to ACR
     foreach ($file in $changedFiles) {
