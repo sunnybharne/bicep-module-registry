@@ -47,7 +47,7 @@ pool: # Define selfhosted pool for the pipeline
 parameters:
 - name: azureServiceConnection
   type: string
-  default: 'id-platformiac-nonprod-sc-01'
+  default: 'tuttu-acrplatformiacsc-sc-01'
 
 # Variables
 variables:
