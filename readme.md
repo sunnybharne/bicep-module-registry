@@ -1,4 +1,4 @@
-# Bicep module registry (Modified from direct github)
+# Bicep module registry (Just Modified)
 
 
 This repository contains the Bicep module registry. This registry is a collection of Bicep modules that can be used in your Bicep files.
