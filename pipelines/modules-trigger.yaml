@@ -8,8 +8,7 @@ trigger:
 pool:
   name: selfhosted
 
-jobs:
-  - job:
-      steps:
-      - script: echo 'trigger pipeline'
-        displayName: 'trigger pipeline'
+
+steps:
+- script: echo 'trigger pipeline'
+  displayName: 'trigger pipeline'
