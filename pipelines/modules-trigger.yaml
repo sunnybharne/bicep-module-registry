@@ -1,0 +1,15 @@
+name: module pipeline trigger
+
+trigger:
+  branches:
+    include:
+    - main
+
+pool:
+  name: selfhosted
+
+jobs:
+  - job:
+      steps:
+      - script: echo 'trigger pipeline'
+        displayName: 'trigger pipeline'
