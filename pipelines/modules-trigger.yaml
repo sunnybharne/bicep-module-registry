@@ -21,6 +21,10 @@ jobs:
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
-           # Trigger the pipeline
+           PAT=$(az keyvault secret show --name 'jiraTokenTest' --vault-name 'jira-token' --query 'value' -o tsv)
+
+           az devops login --organization 'https://dev.azure.com/tuttu' --token $PAT
+
            az pipelines run --branch 'refs/heads/main' --name 'trigger-pipeline' --project 'tuttu' --org 'https://dev.azure.com/tuttu'
+
 
