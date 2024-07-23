@@ -8,7 +8,18 @@ trigger:
 pool:
   name: selfhosted
 
+jobs:
+- job: TriggerPipelineB
+  steps:
 
-steps:
-- script: echo 'trigger pipeline'
-  displayName: 'trigger pipeline'
+  - script: echo 'trigger pipeline'
+    displayName: 'trigger pipeline'
+
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: 'YOUR_AZURE_SUBSCRIPTION'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        az pipelines run --branch 'refs/heads/main' --name 'trigger-pipeline' --project 'tuttu'
+
