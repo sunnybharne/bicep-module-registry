@@ -21,5 +21,6 @@ jobs:
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
-            az pipelines run --branch 'refs/heads/main' --name 'trigger-pipeline' --project 'tuttu' --org 'https://dev.azure.com/tuttu'
+           # Trigger the pipeline
+           az pipelines run --branch 'refs/heads/main' --name 'trigger-pipeline' --project 'tuttu' --org 'https://dev.azure.com/tuttu'
 
